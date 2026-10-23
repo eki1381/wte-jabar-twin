@@ -458,7 +458,7 @@ figure.fig figcaption small { display: block; color: var(--muted); margin-top: 2
 @media (max-width: 900px) {
   :root { --top-h: 104px; }
   .topbar { flex-wrap: wrap; height: auto; min-height: var(--top-h); padding: 8px 12px 6px; gap: 6px 10px; }
-  .brand { flex: 1; } .brand-text b { font-size: 14.5px; white-space: normal; }
+  .brand { flex: 1; } .brand-text b { font-size: 14.5px; white-space: normal; text-wrap: balance; }
   .nav { order: 3; width: 100%; margin: 0; padding-bottom: 2px; }
   .nav a { font-size: 13.5px; padding: 6px 12px; }
   .wrap { padding: 16px 16px 48px; }
