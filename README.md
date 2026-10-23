@@ -1,4 +1,4 @@
-# Kembaran Digital WtE Jawa Barat
+# Jabar Digital Twin Embryo of WtE Plan
 
 Dashboard rekomendasi waste to energy (WtE) tingkat desa untuk Jawa Barat. Dashboard ini adalah embrio digital twin: memetakan *surface* timbulan sampah organik pada 5.986 desa dan kelurahan, menampilkan *series* bulanan cahaya malam, CO, dan SO₂ 2022 sampai 2025, lalu menulis rekomendasi yang selalu didahului kondisi data beserta tahun dan sumbernya.
 

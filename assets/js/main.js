@@ -1,4 +1,4 @@
-// Kembaran Digital WtE Jawa Barat: router, theme, lazy views, prefetch, service worker. No build step.
+// Jabar Digital Twin Embryo of WtE Plan: router, theme, lazy views, prefetch, service worker. No build step.
 import { $, $$, isDark } from './ui.js';
 import * as store from './store.js';
 
@@ -39,7 +39,7 @@ async function route() {
   if (silent) return;
   const { view, params } = parse();
   $$('.nav a').forEach((a) => (a.getAttribute('data-view') === view ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')));
-  document.title = `${TITLES[view]} · Kembaran Digital WtE Jawa Barat`;
+  document.title = `${TITLES[view]} · Jabar Digital Twin Embryo of WtE Plan`;
   if (current !== view) {
     if (current) mods[current]?.hide?.();
     $$('main > .view').forEach((v) => { v.hidden = v.dataset.view !== view; if (!v.hidden) v.classList.remove('warm'); });
