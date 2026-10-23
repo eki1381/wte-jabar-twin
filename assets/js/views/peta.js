@@ -145,7 +145,8 @@ async function init() {
     }, layers: [{ id: 'bg', type: 'background', paint: { 'background-color': css('--bg2') } }] },
   });
   map.touchZoomRotate.disableRotation();
-  await new Promise((r) => map.on('load', r));
+  // the style is inline, so layers can go on as soon as it is parsed; waiting for "load" would wait for basemap tiles
+  if (!map.isStyleLoaded()) await new Promise((r) => map.once('style.load', r));
   for (const b of ['terang', 'gelap', 'citra']) map.addLayer({ id: 'base-' + b, type: 'raster', source: b, layout: { visibility: b === S.base ? 'visible' : 'none' } });
   map.addSource('desa', { type: 'geojson', data: GEO });
   map.addSource('kab', { type: 'geojson', data: KABGEO });

@@ -12,13 +12,18 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%230d3b2c%27/%3E%3Cpath d=%27M16 5c4.5 5.4 8 9 8 13.4a8 8 0 0 1-16 0C8 14 11.5 10.4 16 5z%27 fill=%27%2334c48a%27/%3E%3Cpath d=%27M16 14.5c2 2.4 3.2 4 3.2 5.6a3.2 3.2 0 0 1-6.4 0c0-1.6 1.2-3.2 3.2-5.6z%27 fill=%27%23f5b52e%27/%3E%3C/svg%3E">
 <link rel="preload" href="assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="modulepreload" href="assets/js/main.js">
-<link rel="modulepreload" href="assets/js/views/ringkasan.js">
-<link rel="preload" href="data/provinsi.json" as="fetch" crossorigin>
-<link rel="preload" href="data/kabkota.json" as="fetch" crossorigin>
 <link rel="stylesheet" href="assets/css/style.css">
 <script>
   // theme before first paint, so dark mode never flashes light
   try { var t = localStorage.getItem('wte-tema'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  // start the critical downloads of the view in the URL before any module runs
+  (function () {
+    var h = location.hash, map = /^#\/?(peta|desa=)/.test(h), v = (h.match(/^#\/?([a-z]+)/) || [])[1] || 'ringkasan';
+    var add = function (href, as, mod) { var l = document.createElement('link'); l.rel = mod ? 'modulepreload' : 'preload'; l.href = href; if (as) { l.as = as; if (as === 'fetch') l.crossOrigin = ''; } document.head.appendChild(l); };
+    if (map) { add('assets/vendor/maplibre-gl.js', 'script'); add('data/desa/inti.json', 'fetch'); add('data/geo/desa_jabar_web.topojson', 'fetch'); add('data/geo/kabkota_jabar.geojson', 'fetch'); add('assets/js/views/peta.js', null, 1); add('assets/vendor/topojson-client.min.js', 'script'); }
+    else if (/^(wilayah|rekomendasi|skenario|paper|metode|ringkasan)$/.test(v)) add('assets/js/views/' + v + '.js', null, 1);
+    add('data/provinsi.json', 'fetch'); add('data/kabkota.json', 'fetch');
+  })();
 </script>
 </head>
 <body>
