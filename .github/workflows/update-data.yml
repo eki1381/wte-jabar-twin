@@ -22,6 +22,7 @@ jobs:
           files=(incoming/*.csv)
           if [ ${#files[@]} -eq 0 ]; then echo "tidak ada CSV baru"; exit 0; fi
           python pipeline/gee_monthly_update.py "${files[@]}"
+          python pipeline/build_web.py
           mkdir -p incoming/diproses
           git mv -k "${files[@]}" incoming/diproses/ 2>/dev/null || mv "${files[@]}" incoming/diproses/
       - name: Commit hasil

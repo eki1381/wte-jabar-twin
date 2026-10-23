@@ -4,18 +4,26 @@ Dashboard rekomendasi waste to energy (WtE) tingkat desa untuk Jawa Barat. Dashb
 
 Dasar ilmiah: Paramartha dan Apriliawan (2026), *Dari Komunitas Menjadi Energi: Tipologi Desentralisasi Waste to Energy*, WJES.
 
-Situs ini statis, tanpa langkah build. Pustaka peta dan grafik sudah disertakan di `assets/vendor`, sehingga situs hanya bergantung pada ubin peta dasar Esri Light Gray Canvas (tanpa API key) dan huruf Google Fonts. Jika keduanya tidak tersedia, peta dan data tetap tampil.
+Situs ini statis, tanpa langkah build. Pustaka peta dan grafik serta huruf Plus Jakarta Sans disertakan di `assets/`, sehingga situs hanya bergantung pada ubin peta dasar Esri (tanpa API key).
 
 ## Isi dashboard
 
-| Tab | Isi | Tahun data |
-|---|---|---|
-| Peta desa | 16 lapisan: timbulan organik, kepadatan organik, tipe desa, tahap, VGF, peluang swadana, MAC, emisi dihindari, cahaya malam, CO, SO₂ per tahun, perubahan cahaya malam, rasio puncak musiman, jarak TPA, skor keyakinan, status skenario. Panel kanan berisi kondisi data dengan label tahun dan sumber, lalu rekomendasi (modul, waktu, aktor, instrumen, target, kekuatan bukti, catatan). Pita waktu di bawah peta menampilkan deret bulanan desa terhadap median tipenya, dengan bulan Ramadan dan Lebaran diarsir. | 2022 sampai 2025, rencana 2026 sampai 2030 |
-| Kabupaten/kota | Tabel 27 kabupaten/kota, kondisi APBD, IDSD, Susenas, rekomendasi, sumber VGF, dan empat sel tipologi dengan interval Monte Carlo. | APBD 2018 sampai 2025, IDSD 2022 sampai 2025, Susenas 2021 sampai 2024 |
-| Provinsi dan skenario | Indikator provinsi dengan interval 90 persen, simulator pembiayaan (amplop fiskal, tipping fee, harga karbon, tangkapan, biaya investasi, diskonto), kurva pasokan abatemen per tahap, kesenjangan per kabupaten/kota, dan studi peristiwa Lebaran. | 2026 sampai 2030 |
-| Data dan metode | Arsitektur digital twin, tautan unduh dataset, validasi model, tahun data, kamus data, dan batasan. | |
+| Tab | Isi |
+|---|---|
+| Ringkasan | Hero, lima indikator utama dengan interval, enam temuan paper yang menautkan ke tempat angkanya di dashboard, peta SVG kabupaten/kota dengan empat metrik, alur paper sampai tindakan, empat tipe desa, dan studi peristiwa Lebaran. |
+| Peta | Tujuh topik (Timbulan, Tipologi, Aktivitas, Dampak, Pembiayaan, Rencana, Skenario) dengan 29 lapisan. Legenda interaktif dengan jumlah desa per kelas (klik kelas untuk menyembunyikan), pemutar tahun untuk cahaya malam, CO, dan SO₂, saring kabupaten/kota, kecamatan, tipe, tahap, dan penanda, pencarian desa/kecamatan/kab (tombol `/`), peta dasar terang, gelap, citra, atau polos. Laci desa: ringkasan dengan peringkat dan perbandingan terhadap median tipe, kondisi data bertanda tahun dan sumber, rekomendasi, deret bulanan 48 bulan dengan Ramadan dan Lebaran diarsir, kalender timbulan; bandingkan sampai tiga desa. |
+| Wilayah | Tabel 27 kabupaten/kota yang bisa diurutkan, profil provinsi atau satu wilayah: peta mini desa (tipe, organik, tahap), sumber VGF, rekomendasi, kuadran, kecamatan, desa teratas, empat sel tipologi, ruang fiskal APBD dan IDSD. |
+| Rekomendasi | Gambaran empat modul dan kekuatan bukti, satu tab per tipe, daftar desa dengan saringan dan unduhan CSV, peta jalan 2026–2030, dan aturan penyusunan rekomendasi. |
+| Skenario | Simulator 84 sel (amplop fiskal, tipping fee, harga karbon, tangkapan, biaya investasi, diskonto) dibanding program linear paper, kurva pasokan dengan garis amplop, kesenjangan per kabupaten/kota. Pengaturan tersimpan di tautan sehingga skenario bisa dibagikan. |
+| Temuan Paper | Seluruh naskah dengan daftar isi, abstrak dua bahasa, temuan berlabel, penjelasan bahasa sehari-hari, gambar dan tabel, salin sitasi APA dan unduh BibTeX. |
+| Data & Metode | Alur model dengan rumus, validasi, kamus data, unduhan, arsitektur kembaran digital, dan batasan. |
+| Tanya data (`Ctrl K`) | Kotak pertanyaan luring: jumlah indikator per wilayah, lima desa tertinggi atau terendah, definisi istilah, dan pencarian. Setiap jawaban menyebut tahun dan sumber datanya. |
 
-Tautan langsung: `#desa=<uid>`, `#kab`, `#skenario`, `#data`.
+Tautan langsung: `#peta?t=<topik>&l=<lapisan>&y=<tahun>&k=<kode kab>&kc=<kode kec>&desa=<uid>`, `#wilayah?kab=<kode>`, `#rekomendasi?tab=daftar&t=<tipe>&pen=<penanda>`, `#skenario?a=0.03&s=0.1`, `#paper?s=<bagian>`, `#metode?tab=kamus`. Tautan lama (`#desa=<uid>`, `#kab=<kode>`, `#data`) tetap berlaku.
+
+### Kinerja
+
+Halaman ringkasan hanya memuat `provinsi.json` dan `kabkota.json` (puluhan kilobita gzip) serta menggambar peta kabupaten/kota sebagai SVG; teks hero ada di HTML sehingga tampil seketika. Pustaka MapLibre, geometri desa (`desa_jabar_web.topojson`, disederhanakan dengan mapshaper), dan kolom desa dimuat saat peta dibuka atau saat peramban menganggur. Kolom desa dipecah per bundel (`data/desa/inti|timbulan|satelit|ekonomi|lokasi.json`) sehingga peta hanya mengambil kolom lapisan aktif. Chart.js dimuat hanya saat grafik pertama dibuka. Service worker (`sw.js`) menyimpan data dan pustaka agar kunjungan berikutnya terbuka seketika dan tetap bisa dibaca saat luring.
 
 ## Menerbitkan di GitHub Pages
 
@@ -37,16 +45,25 @@ Ukuran repositori sekitar 60 MB (data web 21 MB, dataset 26 MB, aset GEE 10 MB),
 
 ```
 index.html                     kerangka halaman
-assets/css/style.css           tampilan
-assets/js/app.js               peta, panel, grafik, tab
-assets/js/sim.js               mesin skenario 84 sel (kab/kota x tipe)
+sw.js                          service worker (cache luring)
+assets/css/style.css           sistem desain, tema terang dan gelap
+assets/js/main.js              router, tema, pemuatan malas tampilan
+assets/js/store.js             pemuat data dan bundel kolom desa
+assets/js/views/*.js           ringkasan, peta, wilayah, rekomendasi, skenario, paper, metode
+assets/js/tanya.js             Tanya data (Ctrl K)
+assets/js/ui.js, scales.js, svgmap.js  komponen, skala warna, peta SVG dan kanvas
+assets/js/sim.js, simstate.js  mesin skenario 84 sel (kab/kota x tipe) dan status bersama
 assets/js/fmt.js               format angka Indonesia
+assets/fonts/                  Plus Jakarta Sans (SIL OFL)
 assets/vendor/                 MapLibre GL 4.7.1, topojson-client 3.1.0, Chart.js 4.4.4 (lisensi terlampir)
-data/                          data web: desa.json (kolomnar), kabkota.json, sel.json, provinsi.json,
-                               series/kab_<kode>.json (deret bulanan, kalender musiman, rekomendasi per desa),
-                               geo/ (TopoJSON desa disederhanakan, GeoJSON kab/kota), meta/kamus_data.json
+data/                          data web: desa.json (kolomnar, sumber bundel), desa/<bundel>.json, kabkota.json, sel.json,
+                               provinsi.json, rekomendasi.json, paper.json dan paper/ (gambar), series/kab_<kode>.json
+                               (deret bulanan, kalender musiman, rekomendasi per desa), geo/ (TopoJSON desa, GeoJSON kab/kota),
+                               meta/kamus_data.json
 dataset/                       dataset lengkap untuk analisis dan portal data (lihat di bawah)
 pipeline/build_dataset.py      membangun dataset/ dan data/ dari keluaran model
+pipeline/build_web.py          memecah kolom desa menjadi bundel web dan menulis rekomendasi.json
+pipeline/paper_to_json.py      mengubah naskah .docx menjadi data/paper.json dan gambar webp
 pipeline/rules_rekomendasi.py  mesin aturan rekomendasi desa dan kabupaten/kota
 pipeline/kamus.py              kamus data
 pipeline/twin_io.py            penulis lapisan dinamis (deret bulanan)
@@ -101,7 +118,7 @@ Setiap rekomendasi desa dibangun oleh `pipeline/rules_rekomendasi.py` dengan uru
 5. **Kekuatan bukti** mengikuti skor keyakinan (lebar interval, bukti OSM, cahaya malam, posterior LPA): tinggi menjadi kuat, sedang menjadi sedang, rendah menjadi indikatif. Bunyi tindakan mengikuti bukti: kuat langsung dijalankan; sedang didahului uji coba terukur enam bulan; indikatif didahului penimbangan lapangan 30 hari.
 6. **Catatan** otomatis: lonjakan Lebaran untuk T3 dan T4, cadangan kapasitas 10 persen bila cahaya malam naik 40 persen atau lebih, penanda CO tinggi jauh dari TPA, desa perbatasan tipe, dan anjuran penimbangan lapangan bila keyakinan rendah.
 
-Mengubah aturan: sunting `rules_rekomendasi.py`, lalu jalankan `python pipeline/build_dataset.py --src <folder keluaran model> --raw <folder data mentah>`.
+Mengubah aturan: sunting `rules_rekomendasi.py`, lalu jalankan `python pipeline/build_dataset.py --src <folder keluaran model> --raw <folder data mentah>` dan `python pipeline/build_web.py`.
 
 ## Lapisan digital twin dan pembaruan
 
@@ -118,7 +135,7 @@ Pembaruan bulanan:
 2. Jalankan `gee/02_gee_bulanan_desa_jabar.js` dengan rentang bulan baru, unduh CSV dari Google Drive.
 3. Commit CSV ke `incoming/`. Workflow `Perbarui data GEE` menggabungkannya, memperbarui deret desa, median tipe, dan kolom peta tahunan (tahun baru muncul setelah ada lima bulan kemarau), lalu menerbitkan ulang situs.
 
-Manual: `python pipeline/gee_monthly_update.py incoming/<berkas>.csv`.
+Manual: `python pipeline/gee_monthly_update.py incoming/<berkas>.csv`, lalu `python pipeline/build_web.py`.
 
 Pembaruan bulanan tidak mengubah teks rekomendasi; teks dibangun ulang hanya lewat `build_dataset.py`, supaya rekomendasi tetap merujuk tahun data yang tertulis di dalamnya.
 
