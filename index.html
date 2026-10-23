@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kembaran Digital WtE Jawa Barat</title>
+<meta name="description" content="Peta surface timbulan sampah organik, deret waktu cahaya malam dan kualitas udara, serta rekomendasi waste to energy per desa dan kabupaten/kota di Jawa Barat.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Cpath d=%27M16 3c5 6 9 10 9 15a9 9 0 0 1-18 0c0-5 4-9 9-15z%27 fill=%27%231f3d34%27/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="assets/vendor/maplibre-gl.css" rel="stylesheet">
+<link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c5 6 9 10 9 15a9 9 0 0 1-18 0c0-5 4-9 9-15z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 14c2.2 2.6 3.5 4.3 3.5 6.2a3.5 3.5 0 0 1-7 0c0-1.9 1.3-3.6 3.5-6.2z" fill="currentColor"/></svg>
+    <div>
+      <h1>Kembaran Digital WtE Jawa Barat</h1>
+      <p class="sub">Surface timbulan organik, deret waktu, dan rekomendasi per desa</p>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-view="peta">Peta desa</button>
+    <button role="tab" aria-selected="false" data-view="kab">Kabupaten/kota</button>
+    <button role="tab" aria-selected="false" data-view="skenario">Provinsi dan skenario</button>
+    <button role="tab" aria-selected="false" data-view="data">Data dan metode</button>
+  </nav>
+</header>
+
+<main class="layout" id="layout">
+  <!-- left rail: layer, year, filters -->
+  <aside class="rail" id="rail">
+    <label class="fld">Cari desa atau kelurahan
+      <input id="cari" type="search" placeholder="Ketik nama desa" autocomplete="off">
+      <ul id="hasilCari" class="suggest" role="listbox"></ul>
+    </label>
+    <label class="fld">Lapisan peta
+      <select id="lapisan"></select>
+    </label>
+    <div class="fld" id="tahunWrap">Tahun data
+      <div class="seg" id="tahun">
+        <button data-y="2022">2022</button><button data-y="2023">2023</button><button data-y="2024" aria-pressed="true">2024</button><button data-y="2025">2025</button>
+      </div>
+    </div>
+    <label class="fld">Kabupaten/kota
+      <select id="fKab"><option value="">Seluruh Jawa Barat</option></select>
+    </label>
+    <fieldset class="fld chips" id="fTipe"><legend>Tipe desa</legend></fieldset>
+    <fieldset class="fld chips" id="fTahap"><legend>Tahap implementasi</legend></fieldset>
+    <div class="legend" id="legend"></div>
+    <p class="vintage" id="vintage"></p>
+  </aside>
+
+  <!-- map and time ribbon -->
+  <section class="stage">
+    <div id="map" aria-label="Peta desa Jawa Barat"></div>
+    <div class="hover" id="hover" hidden></div>
+    <div class="ribbon" id="ribbon">
+      <div class="ribbon-head">
+        <strong id="ribbonTitle">Pilih desa di peta untuk melihat deret bulanan 2022 sampai 2025</strong>
+        <div class="seg small" id="ribbonVar">
+          <button data-v="ntl" aria-pressed="true">Cahaya malam</button><button data-v="co">CO</button><button data-v="so2">SO₂</button>
+        </div>
+      </div>
+      <div class="ribbon-body"><canvas id="ribbonChart"></canvas></div>
+    </div>
+  </section>
+
+  <!-- detail drawer -->
+  <aside class="drawer" id="drawer">
+    <div class="empty" id="drawerEmpty">
+      <h2>Mulai dari peta</h2>
+      <p>Klik satu desa untuk melihat kondisi datanya, tahun dan sumber setiap angka, lalu rekomendasi modul, pembiayaan, dan tahap pelaksanaannya.</p>
+      <div id="provSnapshot"></div>
+    </div>
+    <div id="drawerBody" hidden></div>
+  </aside>
+
+  <!-- full width views -->
+  <section class="panel" id="viewKab" hidden></section>
+  <section class="panel" id="viewSkenario" hidden></section>
+  <section class="panel" id="viewData" hidden></section>
+</main>
+
+<div class="loading" id="loading"><div class="bar"><span></span></div><p>Memuat 5.986 desa, deret 2022 sampai 2025, dan rencana pembiayaan</p></div>
+
+<!-- libraries are vendored (MapLibre GL 4.7.1, topojson-client 3.1.0, Chart.js 4.4.4) so the site has no CDN dependency -->
+<script src="assets/vendor/maplibre-gl.js"></script>
+<script src="assets/vendor/topojson-client.min.js"></script>
+<script src="assets/vendor/chart.umd.js"></script>
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1115 @@
+{
+ "judul": "Embrio digital twin waste to energy Jawa Barat",
+ "versi_data": "2026-10",
+ "paper": "Paramartha dan Apriliawan (2026), WJES",
+ "vintage": [
+  {
+   "data": "Batas desa dan kelurahan",
+   "tahun": "2024",
+   "sumber": "BPS"
+  },
+  {
+   "data": "Penduduk kab/kota",
+   "tahun": "2024",
+   "sumber": "Susenas, BPS (diskalakan ke 50,35 juta jiwa)"
+  },
+  {
+   "data": "Tata guna lahan, titik minat, sungai",
+   "tahun": "diunduh 2026",
+   "sumber": "OpenStreetMap"
+  },
+  {
+   "data": "Cahaya malam, SO2, CO bulanan",
+   "tahun": "2022 sampai 2025",
+   "sumber": "VIIRS dan Sentinel 5P via Google Earth Engine"
+  },
+  {
+   "data": "APBD kab/kota",
+   "tahun": "2018 sampai 2025",
+   "sumber": "DJPK Kemenkeu"
+  },
+  {
+   "data": "IDSD",
+   "tahun": "2022 sampai 2025",
+   "sumber": "BRIN"
+  },
+  {
+   "data": "Susenas keuangan inklusif",
+   "tahun": "2021 sampai 2024",
+   "sumber": "BPS"
+  },
+  {
+   "data": "Kalender musiman model",
+   "tahun": "2025",
+   "sumber": "model penulis"
+  },
+  {
+   "data": "Rencana dan rekomendasi",
+   "tahun": "2026 sampai 2030",
+   "sumber": "model penulis"
+  }
+ ],
+ "kpi": {
+  "timbulan_total_ton_th": [
+   7887000.0,
+   9305000.0,
+   10885000.0
+  ],
+  "timbulan_organik_ton_th": [
+   4190000.0,
+   5069000.0,
+   6066000.0
+  ],
+  "organik_dialihkan_ton_th": [
+   1957588.4023695441,
+   2435973.2162196636,
+   2986037.7140452997
+  ],
+  "pangsa_dialihkan": [
+   0.4291967605145633,
+   0.4807792802797428,
+   0.5336995954311957
+  ],
+  "energi_biogas_gwh_th": [
+   523.9716147710838,
+   743.6966478890616,
+   1044.6569496774416
+  ],
+  "listrik_gwh_th": [
+   116.91106527222117,
+   173.2933894987641,
+   250.64295394778827
+  ],
+  "lpg_diganti_ton_th": [
+   11521.159201507093,
+   16500.26300621334,
+   23085.144379995058
+  ],
+  "emisi_dihindari_10th_t": [
+   351283.91257566074,
+   680477.5983152722,
+   1122657.7371473766
+  ],
+  "emisi_dihindari_tunak_t": [
+   982237.46894858,
+   1594122.3140344624,
+   2353513.418236099
+  ],
+  "pekerjaan": [
+   7380.639659286562,
+   9873.751078290537,
+   12993.647662132726
+  ],
+  "investasi_rp": [
+   4776662520258.542,
+   9245843044989.686,
+   15172062137502.775
+  ],
+  "vgf_rp": [
+   70000000000.0,
+   2762000000000.0,
+   8605000000000.0
+  ],
+  "gate_fee_impas_rp_ton": [
+   97337.18439906229,
+   419763.28499288193,
+   808070.4828012561
+  ],
+  "penghematan_subsidi_lpg_rp": [
+   115211592015.07092,
+   165002630062.13336,
+   230851443799.95056
+  ]
+ },
+ "validasi": {
+  "dasymetric": {
+   "beta": {
+    "nd": 1690.39,
+    "lu_res_km2": 0.0,
+    "rural_land": 75.28,
+    "poi_all": 295.56,
+    "ntl_sum": 305.61
+   },
+   "beta_ci90": {
+    "nd": [
+     0.0,
+     2843.8
+    ],
+    "lu_res_km2": [
+     0.0,
+     14794.1
+    ],
+    "rural_land": [
+     0.0,
+     343.5
+    ],
+    "poi_all": [
+     80.8,
+     503.9
+    ],
+    "ntl_sum": [
+     106.8,
+     453.1
+    ]
+   },
+   "R2": 0.866,
+   "Q2_loo": 0.778,
+   "MAPE_loo": 25.4,
+   "Q2_loo_admin_only": 0.015,
+   "pearson_loo": 0.895,
+   "spearman_loo": 0.865
+  },
+  "perkotaan": {
+   "density_threshold": 766.9,
+   "target_share": 0.801,
+   "r": 0.932,
+   "rho": 0.963,
+   "mae_pp": 5.1
+  },
+  "sipsn": {
+   "r": 0.986,
+   "mape": 14.4,
+   "n": 5
+  },
+  "ntl_v1": 0.809,
+  "tipologi": {
+   "n_units": 5984,
+   "features": [
+    "log_dens",
+    "log_org",
+    "nhh_share",
+    "log_dist_tpa"
+   ],
+   "ARI_km_lpa": 0.591,
+   "ARI_km_lpa_spherical": 0.597,
+   "sil_k4": 0.277,
+   "kmeans_boot_ARI": [
+    0.898,
+    0.833
+   ],
+   "lpa_mean_posterior": 0.844
+  },
+  "ari_v1_v2": 0.662
+ },
+ "studi_peristiwa": {
+  "leb_T2": {
+   "b": 0.0502,
+   "se": 0.0462,
+   "p": 0.2826
+  },
+  "leb_T3": {
+   "b": 0.102,
+   "se": 0.0465,
+   "p": 0.0331
+  },
+  "leb_T4": {
+   "b": 0.194,
+   "se": 0.055,
+   "p": 0.0009
+  },
+  "ram_T2": {
+   "b": -0.0145,
+   "se": 0.0697,
+   "p": 0.8356
+  },
+  "ram_T3": {
+   "b": -0.0125,
+   "se": 0.0647,
+   "p": 0.8475
+  },
+  "ram_T4": {
+   "b": -0.0009,
+   "se": 0.0778,
+   "p": 0.9907
+  }
+ },
+ "plasebo": {
+  "leb_T2": {
+   "b": -0.002,
+   "se": 0.0252,
+   "p": 0.9374
+  },
+  "leb_T3": {
+   "b": -0.0664,
+   "se": 0.0492,
+   "p": 0.1834
+  },
+  "leb_T4": {
+   "b": -0.1178,
+   "se": 0.059,
+   "p": 0.0517
+  }
+ },
+ "skenario": {
+  "konservatif": {
+   "env_kab_total": 693767351372.5261,
+   "env_dd_total": 309500000000.0,
+   "env_bk": 254046416118.1,
+   "vgf_total_need": 2675403072067.9688,
+   "ghg_achieved": 926725.2093111204,
+   "ghg_share": 0.5958999666721199,
+   "thr_achieved": 1415927.422612951,
+   "jobs": 5646.751066931227,
+   "used_kab": 653131966804.2455,
+   "used_dd": 278394089695.2005,
+   "used_bk": 254046416118.09998,
+   "private_capex": 4057877677820.163,
+   "cells_full": 44,
+   "cells_partial": 21,
+   "p_cover_vgf": 0.347
+  },
+  "dasar": {
+   "env_kab_total": 2123153185462.458,
+   "env_dd_total": 928500000000.0,
+   "env_bk": 635116040295.25,
+   "vgf_total_need": 2675403072067.9688,
+   "ghg_achieved": 1555169.0906890577,
+   "ghg_share": 1.0,
+   "thr_achieved": 2426639.9848284773,
+   "jobs": 9766.703208815286,
+   "used_kab": 1692975282648.9243,
+   "used_dd": 594424825982.3376,
+   "used_bk": 388002963436.70703,
+   "private_capex": 6298059426799.723,
+   "cells_full": 84,
+   "cells_partial": 0,
+   "p_cover_vgf": 0.5966666666666667
+  },
+  "ambisius": {
+   "env_kab_total": 3678092413587.0303,
+   "env_dd_total": 1547500000000.0,
+   "env_bk": 1270232080590.5,
+   "vgf_total_need": 2675403072067.9688,
+   "ghg_achieved": 1555169.0906890577,
+   "ghg_share": 1.0,
+   "thr_achieved": 2426639.9848284773,
+   "jobs": 9766.703208815286,
+   "used_kab": 1838714635013.447,
+   "used_dd": 720379971958.6309,
+   "used_bk": 116308465095.89102,
+   "private_capex": 6298059426799.723,
+   "cells_full": 84,
+   "cells_partial": 0,
+   "p_cover_vgf": 0.8123333333333334
+  }
+ },
+ "kurva_pasokan": [
+  {
+   "cell": "3218_4",
+   "tipe": 4,
+   "ghg_p50": 1091.5,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 1091.5,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3218_3",
+   "tipe": 3,
+   "ghg_p50": 6145.7,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 7237.2,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3279_3",
+   "tipe": 3,
+   "ghg_p50": 6611.3,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 13848.5,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3207_2",
+   "tipe": 2,
+   "ghg_p50": 156.2,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 14004.6,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3279_4",
+   "tipe": 4,
+   "ghg_p50": 122.2,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 14126.8,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3278_1",
+   "tipe": 1,
+   "ghg_p50": 2194.8,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 16321.7,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3213_1",
+   "tipe": 1,
+   "ghg_p50": 1614.4,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 17936.0,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3278_2",
+   "tipe": 2,
+   "ghg_p50": 5540.2,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 23476.2,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3207_3",
+   "tipe": 3,
+   "ghg_p50": 11984.1,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 35460.4,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3206_2",
+   "tipe": 2,
+   "ghg_p50": 1887.4,
+   "vgf_capital_p50": 0.0,
+   "cum_ghg": 37347.8,
+   "cum_vgf": 0.0,
+   "phase": 1
+  },
+  {
+   "cell": "3210_2",
+   "tipe": 2,
+   "ghg_p50": 3006.5,
+   "vgf_capital_p50": 15760271.9,
+   "cum_ghg": 40354.3,
+   "cum_vgf": 15760271.9,
+   "phase": 1
+  },
+  {
+   "cell": "3208_2",
+   "tipe": 2,
+   "ghg_p50": 6640.9,
+   "vgf_capital_p50": 1504846800.9,
+   "cum_ghg": 46995.2,
+   "cum_vgf": 1520607072.8,
+   "phase": 1
+  },
+  {
+   "cell": "3202_1",
+   "tipe": 1,
+   "ghg_p50": 9195.9,
+   "vgf_capital_p50": 2126288377.1,
+   "cum_ghg": 56191.1,
+   "cum_vgf": 3646895449.9,
+   "phase": 1
+  },
+  {
+   "cell": "3203_1",
+   "tipe": 1,
+   "ghg_p50": 7795.1,
+   "vgf_capital_p50": 2326909762.6,
+   "cum_ghg": 63986.2,
+   "cum_vgf": 5973805212.5,
+   "phase": 1
+  },
+  {
+   "cell": "3272_1",
+   "tipe": 1,
+   "ghg_p50": 10807.0,
+   "vgf_capital_p50": 3475284591.2,
+   "cum_ghg": 74793.1,
+   "cum_vgf": 9449089803.7,
+   "phase": 1
+  },
+  {
+   "cell": "3278_3",
+   "tipe": 3,
+   "ghg_p50": 11059.0,
+   "vgf_capital_p50": 4148462154.9,
+   "cum_ghg": 85852.2,
+   "cum_vgf": 13597551958.5,
+   "phase": 1
+  },
+  {
+   "cell": "3210_3",
+   "tipe": 3,
+   "ghg_p50": 6310.9,
+   "vgf_capital_p50": 2944123743.8,
+   "cum_ghg": 92163.1,
+   "cum_vgf": 16541675702.4,
+   "phase": 1
+  },
+  {
+   "cell": "3212_1",
+   "tipe": 1,
+   "ghg_p50": 4159.6,
+   "vgf_capital_p50": 2010890227.6,
+   "cum_ghg": 96322.6,
+   "cum_vgf": 18552565930.0,
+   "phase": 1
+  },
+  {
+   "cell": "3206_3",
+   "tipe": 3,
+   "ghg_p50": 7734.4,
+   "vgf_capital_p50": 3913658098.0,
+   "cum_ghg": 104057.0,
+   "cum_vgf": 22466224028.0,
+   "phase": 1
+  },
+  {
+   "cell": "3207_4",
+   "tipe": 4,
+   "ghg_p50": 3799.2,
+   "vgf_capital_p50": 2081084278.3,
+   "cum_ghg": 107856.2,
+   "cum_vgf": 24547308306.3,
+   "phase": 1
+  },
+  {
+   "cell": "3205_2",
+   "tipe": 2,
+   "ghg_p50": 25583.7,
+   "vgf_capital_p50": 15599942416.5,
+   "cum_ghg": 133439.9,
+   "cum_vgf": 40147250722.9,
+   "phase": 1
+  },
+  {
+   "cell": "3205_1",
+   "tipe": 1,
+   "ghg_p50": 13187.8,
+   "vgf_capital_p50": 8060111223.7,
+   "cum_ghg": 146627.7,
+   "cum_vgf": 48207361946.5,
+   "phase": 1
+  },
+  {
+   "cell": "3215_1",
+   "tipe": 1,
+   "ghg_p50": 24885.8,
+   "vgf_capital_p50": 16398942369.5,
+   "cum_ghg": 171513.5,
+   "cum_vgf": 64606304316.0,
+   "phase": 1
+  },
+  {
+   "cell": "3213_2",
+   "tipe": 2,
+   "ghg_p50": 1415.0,
+   "vgf_capital_p50": 975148485.1,
+   "cum_ghg": 172928.5,
+   "cum_vgf": 65581452801.2,
+   "phase": 1
+  },
+  {
+   "cell": "3209_1",
+   "tipe": 1,
+   "ghg_p50": 17805.2,
+   "vgf_capital_p50": 12905367402.3,
+   "cum_ghg": 190733.7,
+   "cum_vgf": 78486820203.5,
+   "phase": 1
+  },
+  {
+   "cell": "3209_2",
+   "tipe": 2,
+   "ghg_p50": 31543.8,
+   "vgf_capital_p50": 24216171433.0,
+   "cum_ghg": 222277.5,
+   "cum_vgf": 102702991636.5,
+   "phase": 1
+  },
+  {
+   "cell": "3274_1",
+   "tipe": 1,
+   "ghg_p50": 19735.6,
+   "vgf_capital_p50": 15190157128.3,
+   "cum_ghg": 242013.1,
+   "cum_vgf": 117893148764.9,
+   "phase": 1
+  },
+  {
+   "cell": "3208_3",
+   "tipe": 3,
+   "ghg_p50": 12788.0,
+   "vgf_capital_p50": 11432851251.9,
+   "cum_ghg": 254801.1,
+   "cum_vgf": 129326000016.8,
+   "phase": 1
+  },
+  {
+   "cell": "3217_1",
+   "tipe": 1,
+   "ghg_p50": 33500.4,
+   "vgf_capital_p50": 32903344666.5,
+   "cum_ghg": 288301.5,
+   "cum_vgf": 162229344683.2,
+   "phase": 1
+  },
+  {
+   "cell": "3212_2",
+   "tipe": 2,
+   "ghg_p50": 15798.4,
+   "vgf_capital_p50": 16054482974.1,
+   "cum_ghg": 304099.9,
+   "cum_vgf": 178283827657.3,
+   "phase": 1
+  },
+  {
+   "cell": "3204_1",
+   "tipe": 1,
+   "ghg_p50": 80515.2,
+   "vgf_capital_p50": 82382979324.5,
+   "cum_ghg": 384615.1,
+   "cum_vgf": 260666806981.8,
+   "phase": 1
+  },
+  {
+   "cell": "3272_2",
+   "tipe": 2,
+   "ghg_p50": 988.3,
+   "vgf_capital_p50": 1015696415.1,
+   "cum_ghg": 385603.4,
+   "cum_vgf": 261682503396.9,
+   "phase": 1
+  },
+  {
+   "cell": "3211_1",
+   "tipe": 1,
+   "ghg_p50": 8023.8,
+   "vgf_capital_p50": 8430012244.2,
+   "cum_ghg": 393627.2,
+   "cum_vgf": 270112515641.1,
+   "phase": 1
+  },
+  {
+   "cell": "3277_1",
+   "tipe": 1,
+   "ghg_p50": 25007.3,
+   "vgf_capital_p50": 26866028498.6,
+   "cum_ghg": 418634.5,
+   "cum_vgf": 296978544139.7,
+   "phase": 1
+  },
+  {
+   "cell": "3212_3",
+   "tipe": 3,
+   "ghg_p50": 7749.8,
+   "vgf_capital_p50": 9022186575.0,
+   "cum_ghg": 426384.3,
+   "cum_vgf": 306000730714.7,
+   "phase": 1
+  },
+  {
+   "cell": "3203_2",
+   "tipe": 2,
+   "ghg_p50": 10688.6,
+   "vgf_capital_p50": 12786133184.3,
+   "cum_ghg": 437072.9,
+   "cum_vgf": 318786863899.0,
+   "phase": 1
+  },
+  {
+   "cell": "3271_1",
+   "tipe": 1,
+   "ghg_p50": 57219.3,
+   "vgf_capital_p50": 68448443880.5,
+   "cum_ghg": 494292.3,
+   "cum_vgf": 387235307779.5,
+   "phase": 1
+  },
+  {
+   "cell": "3205_3",
+   "tipe": 3,
+   "ghg_p50": 14863.4,
+   "vgf_capital_p50": 18576923669.2,
+   "cum_ghg": 509155.6,
+   "cum_vgf": 405812231448.7,
+   "phase": 1
+  },
+  {
+   "cell": "3201_1",
+   "tipe": 1,
+   "ghg_p50": 169190.3,
+   "vgf_capital_p50": 240662157602.0,
+   "cum_ghg": 678345.9,
+   "cum_vgf": 646474389050.7,
+   "phase": 1
+  },
+  {
+   "cell": "3213_3",
+   "tipe": 3,
+   "ghg_p50": 17815.5,
+   "vgf_capital_p50": 25369624155.6,
+   "cum_ghg": 696161.4,
+   "cum_vgf": 671844013206.3,
+   "phase": 1
+  },
+  {
+   "cell": "3273_1",
+   "tipe": 1,
+   "ghg_p50": 141857.2,
+   "vgf_capital_p50": 215148104008.4,
+   "cum_ghg": 838018.6,
+   "cum_vgf": 886992117214.8,
+   "phase": 2
+  },
+  {
+   "cell": "3203_3",
+   "tipe": 3,
+   "ghg_p50": 21603.1,
+   "vgf_capital_p50": 34110148851.4,
+   "cum_ghg": 859621.7,
+   "cum_vgf": 921102266066.2,
+   "phase": 2
+  },
+  {
+   "cell": "3216_1",
+   "tipe": 1,
+   "ghg_p50": 128990.6,
+   "vgf_capital_p50": 217235664833.0,
+   "cum_ghg": 988612.2,
+   "cum_vgf": 1138337930899.2,
+   "phase": 2
+  },
+  {
+   "cell": "3276_1",
+   "tipe": 1,
+   "ghg_p50": 109926.0,
+   "vgf_capital_p50": 195241827112.2,
+   "cum_ghg": 1098538.2,
+   "cum_vgf": 1333579758011.3,
+   "phase": 2
+  },
+  {
+   "cell": "3209_3",
+   "tipe": 3,
+   "ghg_p50": 14971.0,
+   "vgf_capital_p50": 26629169629.2,
+   "cum_ghg": 1113509.2,
+   "cum_vgf": 1360208927640.6,
+   "phase": 2
+  },
+  {
+   "cell": "3275_1",
+   "tipe": 1,
+   "ghg_p50": 130844.5,
+   "vgf_capital_p50": 238602975144.8,
+   "cum_ghg": 1244353.7,
+   "cum_vgf": 1598811902785.4,
+   "phase": 3
+  },
+  {
+   "cell": "3272_3",
+   "tipe": 3,
+   "ghg_p50": 3961.4,
+   "vgf_capital_p50": 7243786080.0,
+   "cum_ghg": 1248315.1,
+   "cum_vgf": 1606055688865.4,
+   "phase": 3
+  },
+  {
+   "cell": "3204_3",
+   "tipe": 3,
+   "ghg_p50": 13904.1,
+   "vgf_capital_p50": 25803075603.7,
+   "cum_ghg": 1262219.2,
+   "cum_vgf": 1631858764469.1,
+   "phase": 3
+  },
+  {
+   "cell": "3202_2",
+   "tipe": 2,
+   "ghg_p50": 12079.3,
+   "vgf_capital_p50": 23922035444.1,
+   "cum_ghg": 1274298.5,
+   "cum_vgf": 1655780799913.2,
+   "phase": 3
+  },
+  {
+   "cell": "3204_2",
+   "tipe": 2,
+   "ghg_p50": 32198.1,
+   "vgf_capital_p50": 63940668273.4,
+   "cum_ghg": 1306496.5,
+   "cum_vgf": 1719721468186.6,
+   "phase": 3
+  },
+  {
+   "cell": "3202_3",
+   "tipe": 3,
+   "ghg_p50": 30147.2,
+   "vgf_capital_p50": 63213060576.0,
+   "cum_ghg": 1336643.7,
+   "cum_vgf": 1782934528762.6,
+   "phase": 3
+  },
+  {
+   "cell": "3217_2",
+   "tipe": 2,
+   "ghg_p50": 12906.8,
+   "vgf_capital_p50": 27251175131.4,
+   "cum_ghg": 1349550.5,
+   "cum_vgf": 1810185703894.0,
+   "phase": 3
+  },
+  {
+   "cell": "3274_3",
+   "tipe": 3,
+   "ghg_p50": 290.4,
+   "vgf_capital_p50": 625027807.2,
+   "cum_ghg": 1349840.9,
+   "cum_vgf": 1810810731701.2,
+   "phase": 3
+  },
+  {
+   "cell": "3211_2",
+   "tipe": 2,
+   "ghg_p50": 7799.9,
+   "vgf_capital_p50": 17574841864.2,
+   "cum_ghg": 1357640.8,
+   "cum_vgf": 1828385573565.4,
+   "phase": 3
+  },
+  {
+   "cell": "3214_2",
+   "tipe": 2,
+   "ghg_p50": 4290.4,
+   "vgf_capital_p50": 10706239157.5,
+   "cum_ghg": 1361931.2,
+   "cum_vgf": 1839091812722.9,
+   "phase": 3
+  },
+  {
+   "cell": "3211_3",
+   "tipe": 3,
+   "ghg_p50": 11093.2,
+   "vgf_capital_p50": 30234346711.8,
+   "cum_ghg": 1373024.4,
+   "cum_vgf": 1869326159434.7,
+   "phase": 3
+  },
+  {
+   "cell": "3217_3",
+   "tipe": 3,
+   "ghg_p50": 8668.6,
+   "vgf_capital_p50": 23756610984.0,
+   "cum_ghg": 1381693.0,
+   "cum_vgf": 1893082770418.7,
+   "phase": 3
+  },
+  {
+   "cell": "3205_4",
+   "tipe": 4,
+   "ghg_p50": 3556.0,
+   "vgf_capital_p50": 9941675392.0,
+   "cum_ghg": 1385249.0,
+   "cum_vgf": 1903024445810.6,
+   "phase": 3
+  },
+  {
+   "cell": "3215_2",
+   "tipe": 2,
+   "ghg_p50": 6233.9,
+   "vgf_capital_p50": 17528348402.1,
+   "cum_ghg": 1391482.9,
+   "cum_vgf": 1920552794212.7,
+   "phase": 3
+  },
+  {
+   "cell": "3214_3",
+   "tipe": 3,
+   "ghg_p50": 15480.2,
+   "vgf_capital_p50": 44044611894.2,
+   "cum_ghg": 1406963.1,
+   "cum_vgf": 1964597406106.9,
+   "phase": 3
+  },
+  {
+   "cell": "3271_2",
+   "tipe": 2,
+   "ghg_p50": 331.8,
+   "vgf_capital_p50": 971447015.2,
+   "cum_ghg": 1407295.0,
+   "cum_vgf": 1965568853122.1,
+   "phase": 3
+  },
+  {
+   "cell": "3215_3",
+   "tipe": 3,
+   "ghg_p50": 21677.2,
+   "vgf_capital_p50": 68436971466.4,
+   "cum_ghg": 1428972.2,
+   "cum_vgf": 2034005824588.5,
+   "phase": 3
+  },
+  {
+   "cell": "3201_2",
+   "tipe": 2,
+   "ghg_p50": 30165.1,
+   "vgf_capital_p50": 97619647121.3,
+   "cum_ghg": 1459137.3,
+   "cum_vgf": 2131625471709.8,
+   "phase": 3
+  },
+  {
+   "cell": "3201_3",
+   "tipe": 3,
+   "ghg_p50": 32199.5,
+   "vgf_capital_p50": 109640751473.9,
+   "cum_ghg": 1491336.7,
+   "cum_vgf": 2241266223183.7,
+   "phase": 3
+  },
+  {
+   "cell": "3273_3",
+   "tipe": 3,
+   "ghg_p50": 171.8,
+   "vgf_capital_p50": 602157893.0,
+   "cum_ghg": 1491508.5,
+   "cum_vgf": 2241868381076.7,
+   "phase": 3
+  },
+  {
+   "cell": "3271_3",
+   "tipe": 3,
+   "ghg_p50": 5613.9,
+   "vgf_capital_p50": 20661472942.7,
+   "cum_ghg": 1497122.5,
+   "cum_vgf": 2262529854019.4,
+   "phase": 3
+  },
+  {
+   "cell": "3206_4",
+   "tipe": 4,
+   "ghg_p50": 6175.7,
+   "vgf_capital_p50": 23813599237.1,
+   "cum_ghg": 1503298.2,
+   "cum_vgf": 2286343453256.5,
+   "phase": 3
+  },
+  {
+   "cell": "3216_2",
+   "tipe": 2,
+   "ghg_p50": 17785.9,
+   "vgf_capital_p50": 69973701669.1,
+   "cum_ghg": 1521084.1,
+   "cum_vgf": 2356317154925.6,
+   "phase": 3
+  },
+  {
+   "cell": "3216_3",
+   "tipe": 3,
+   "ghg_p50": 1596.1,
+   "vgf_capital_p50": 6290106794.3,
+   "cum_ghg": 1522680.2,
+   "cum_vgf": 2362607261720.0,
+   "phase": 3
+  },
+  {
+   "cell": "3208_4",
+   "tipe": 4,
+   "ghg_p50": 2145.5,
+   "vgf_capital_p50": 8616064962.6,
+   "cum_ghg": 1524825.7,
+   "cum_vgf": 2371223326682.6,
+   "phase": 3
+  },
+  {
+   "cell": "3210_4",
+   "tipe": 4,
+   "ghg_p50": 3898.8,
+   "vgf_capital_p50": 17650430426.4,
+   "cum_ghg": 1528724.4,
+   "cum_vgf": 2388873757108.9,
+   "phase": 3
+  },
+  {
+   "cell": "3278_4",
+   "tipe": 4,
+   "ghg_p50": 404.9,
+   "vgf_capital_p50": 1839774086.7,
+   "cum_ghg": 1529129.4,
+   "cum_vgf": 2390713531195.7,
+   "phase": 3
+  },
+  {
+   "cell": "3203_4",
+   "tipe": 4,
+   "ghg_p50": 4464.0,
+   "vgf_capital_p50": 28292912750.4,
+   "cum_ghg": 1533593.3,
+   "cum_vgf": 2419006443946.1,
+   "phase": 3
+  },
+  {
+   "cell": "3209_4",
+   "tipe": 4,
+   "ghg_p50": 985.9,
+   "vgf_capital_p50": 6619973937.1,
+   "cum_ghg": 1534579.3,
+   "cum_vgf": 2425626417883.1,
+   "phase": 3
+  },
+  {
+   "cell": "3212_4",
+   "tipe": 4,
+   "ghg_p50": 3033.3,
+   "vgf_capital_p50": 20499725256.1,
+   "cum_ghg": 1537612.6,
+   "cum_vgf": 2446126143139.2,
+   "phase": 3
+  },
+  {
+   "cell": "3213_4",
+   "tipe": 4,
+   "ghg_p50": 4198.7,
+   "vgf_capital_p50": 34003173322.0,
+   "cum_ghg": 1541811.3,
+   "cum_vgf": 2480129316461.2,
+   "phase": 3
+  },
+  {
+   "cell": "3202_4",
+   "tipe": 4,
+   "ghg_p50": 4014.3,
+   "vgf_capital_p50": 40816365913.4,
+   "cum_ghg": 1545825.6,
+   "cum_vgf": 2520945682374.6,
+   "phase": 3
+  },
+  {
+   "cell": "3204_4",
+   "tipe": 4,
+   "ghg_p50": 565.9,
+   "vgf_capital_p50": 6572036612.0,
+   "cum_ghg": 1546391.5,
+   "cum_vgf": 2527517718986.5,
+   "phase": 3
+  },
+  {
+   "cell": "3211_4",
+   "tipe": 4,
+   "ghg_p50": 1779.6,
+   "vgf_capital_p50": 21323803127.3,
+   "cum_ghg": 1548171.2,
+   "cum_vgf": 2548841522113.8,
+   "phase": 3
+  },
+  {
+   "cell": "3217_4",
+   "tipe": 4,
+   "ghg_p50": 693.4,
+   "vgf_capital_p50": 8435447218.9,
+   "cum_ghg": 1548864.6,
+   "cum_vgf": 2557276969332.7,
+   "phase": 3
+  },
+  {
+   "cell": "3214_4",
+   "tipe": 4,
+   "ghg_p50": 1469.7,
+   "vgf_capital_p50": 24315996650.8,
+   "cum_ghg": 1550334.3,
+   "cum_vgf": 2581592965983.6,
+   "phase": 3
+  },
+  {
+   "cell": "3201_4",
+   "tipe": 4,
+   "ghg_p50": 818.9,
+   "vgf_capital_p50": 14651422129.8,
+   "cum_ghg": 1551153.1,
+   "cum_vgf": 2596244388113.4,
+   "phase": 3
+  },
+  {
+   "cell": "3215_4",
+   "tipe": 4,
+   "ghg_p50": 3666.1,
+   "vgf_capital_p50": 71614582404.5,
+   "cum_ghg": 1554819.2,
+   "cum_vgf": 2667858970517.9,
+   "phase": 3
+  },
+  {
+   "cell": "3216_4",
+   "tipe": 4,
+   "ghg_p50": 349.9,
+   "vgf_capital_p50": 7544101550.1,
+   "cum_ghg": 1555169.1,
+   "cum_vgf": 2675403072068.0,
+   "phase": 3
+  }
+ ],
+ "tahap": {
+  "1": {
+   "tahun": "2026 sampai 2027",
+   "sel": 40,
+   "emisi_t": 696161.4074982364,
+   "organik_ton": 965180.0255103789,
+   "vgf_rp": 671844013206.3405,
+   "investasi_rp": 3705346234712.9336,
+   "pekerjaan": 3605.94799055363
+  },
+  "2": {
+   "tahun": "2028 sampai 2029",
+   "sel": 5,
+   "emisi_t": 417347.8351390861,
+   "organik_ton": 513836.0424144246,
+   "vgf_rp": 688364914434.232,
+   "investasi_rp": 2077276389094.7305,
+   "pekerjaan": 1503.5718574983098
+  },
+  "3": {
+   "tahun": "2030",
+   "sel": 39,
+   "emisi_t": 441659.84805173485,
+   "organik_ton": 947623.9169036737,
+   "vgf_rp": 1315194144427.396,
+   "investasi_rp": 3190839875060.0293,
+   "pekerjaan": 4657.183360763347
+  }
+ },
+ "profil_tipe": {
+  "1": {
+   "nama": "T1 Inti perkotaan",
+   "desa": 902
+  },
+  "2": {
+   "nama": "T2 Permukiman peri urban",
+   "desa": 1566
+  },
+  "3": {
+   "nama": "T3 Simpul pasar dan event",
+   "desa": 1094
+  },
+  "4": {
+   "nama": "T4 Agraris perdesaan",
+   "desa": 2422
+  }
+ },
+ "amplop_dasar": {
+  "belanja_modal_kabkota_2025": 11814520229926.72,
+  "silpa_kabkota_2025": 4185113134488.0,
+  "dana_desa_2024": 6190000000000.0,
+  "bantuan_keuangan_provinsi_2025": 2540464161181.0
+ },
+ "parameter_skenario": {
+  "tipping_fee_rp_ton": 268000,
+  "biaya_angkut_rp_tkm": 3000,
+  "harga_karbon_rp_t": 90000,
+  "diskonto": 0.1,
+  "umur_th": 15,
+  "catatan": "Simulasi dashboard memakai koefisien rerata per sel yang dikalibrasi ke median Monte Carlo (selisih kesenjangan pada nilai dasar ditambahkan sebagai koreksi tetap), lalu alokasi rakus berdasarkan VGF per t CO2e. Hasilnya indikatif; angka resmi paper berasal dari program linear."
+ }
+}

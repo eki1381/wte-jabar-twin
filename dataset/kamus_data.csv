@@ -1,0 +1,84 @@
+kolom,tabel,definisi,satuan,tahun_data,sumber,metode,kekuatan_bukti
+uid,desa_indikator_wide,Kunci unik poligon desa (urutan berkas batas BPS 2024),kode,2024,BPS,Penomoran urutan,tidak berlaku
+kode_kabupaten_kota,desa_indikator_wide,Kode BPS kabupaten/kota,kode,2024,BPS,Kode referensi,tidak berlaku
+bps_kode_desa_kelurahan,desa_indikator_wide,Kode BPS desa/kelurahan 10 digit,kode,2024,BPS,Kode referensi,tidak berlaku
+kemendagri_kode_desa_kelurahan,desa_indikator_wide,"Kode Kemendagri desa/kelurahan, diisi melalui crosswalk Satu Data Jabar",kode,sesuai berkas crosswalk,Open Data Jabar,Penggabungan pada kode BPS,tidak berlaku
+kode_bps_ganda,desa_indikator_wide,Penanda kode BPS yang dipakai lebih dari satu poligon pada berkas batas,biner,2024,BPS,Pemeriksaan duplikasi,tidak berlaku
+luas_km2,desa_indikator_wide,Luas poligon desa,km2,2024,BPS,Proyeksi UTM 48S,kuat
+penduduk_model,desa_indikator_wide,"Penduduk desa hasil dasymetric cerdas, dijumlahkan sama dengan total kab/kota Susenas",jiwa,2024,"Model dasymetric v2 (Susenas 2024, OSM, VIIRS 2024)","NNLS dan alokasi piknofilaktik; Q2 LOOCV 0,78",kuat
+kepadatan_jiwa_km2,desa_indikator_wide,Kepadatan penduduk model,jiwa per km2,2024,"Model dasymetric v2 (Susenas 2024, OSM, VIIRS 2024)",Penduduk model dibagi luas,kuat
+perkotaan_model,desa_indikator_wide,Klasifikasi perkotaan dari ambang kepadatan yang mereproduksi pangsa perkotaan Susenas,biner,2024,"Model dasymetric v2 (Susenas 2024, OSM, VIIRS 2024)","Ambang 767 jiwa per km2; r 0,93 terhadap Susenas",kuat
+timbulan_total_ton_th_p05,desa_indikator_wide,"Timbulan sampah total, persentil 5",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Kalibrasi 25 ribu ton per hari (DLH Jabar),sedang
+timbulan_total_ton_th_p50,desa_indikator_wide,"Timbulan sampah total, median",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Kalibrasi 25 ribu ton per hari (DLH Jabar),sedang
+timbulan_total_ton_th_p95,desa_indikator_wide,"Timbulan sampah total, persentil 95",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Kalibrasi 25 ribu ton per hari (DLH Jabar),sedang
+timbulan_organik_ton_th_p05,desa_indikator_wide,"Timbulan organik (sisa makanan dan hijauan), persentil 5",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Komposisi SIPSN,sedang
+timbulan_organik_ton_th_p50,desa_indikator_wide,"Timbulan organik, median",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Komposisi SIPSN,sedang
+timbulan_organik_ton_th_p95,desa_indikator_wide,"Timbulan organik, persentil 95",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Komposisi SIPSN,sedang
+sisa_makanan_ton_th_p05,desa_indikator_wide,"Sisa makanan, persentil 5",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Komposisi SIPSN,sedang
+sisa_makanan_ton_th_p50,desa_indikator_wide,"Sisa makanan, median",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Komposisi SIPSN,sedang
+sisa_makanan_ton_th_p95,desa_indikator_wide,"Sisa makanan, persentil 95",ton per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Komposisi SIPSN,sedang
+timbulan_per_kapita_kg_hari,desa_indikator_wide,Timbulan total per kapita,kg per jiwa per hari,2024,Model timbulan Monte Carlo 3.000 iterasi,Rerata Monte Carlo dibagi penduduk,sedang
+kepadatan_organik_ton_km2_th,desa_indikator_wide,Kepadatan timbulan organik,ton per km2 per tahun,2024,Model timbulan Monte Carlo 3.000 iterasi,Rerata organik dibagi luas,sedang
+pangsa_nonrumahtangga,desa_indikator_wide,"Pangsa sampah pasar, komersial, dan fasilitas umum",rasio,2024,Model timbulan Monte Carlo 3.000 iterasi,Alokasi kernel titik minat OSM,sedang
+rasio_puncak_rerata,desa_indikator_wide,Rasio puncak bulanan terhadap rerata timbulan organik,rasio,2025,Model kalender musiman,"Ramadan, Lebaran, Iduladha, libur, hajatan",sedang
+bulan_puncak,desa_indikator_wide,Bulan puncak timbulan organik,bulan,2025,Model kalender musiman,Argmax profil bulanan,sedang
+tipe_desa,desa_indikator_wide,"Tipe desa WtE (1 inti perkotaan, 2 peri urban, 3 pasar dan event, 4 agraris)",kategori,2026,Tipologi k means dan LPA,"Empat indikator terstandar; ARI bootstrap 0,90",kuat
+nama_tipe_desa,desa_indikator_wide,Nama tipe desa,teks,2026,Tipologi k means dan LPA,Label klaster,kuat
+lpa_probabilitas_posterior,desa_indikator_wide,Probabilitas posterior keanggotaan LPA,rasio,2026,Latent profile analysis,Gaussian mixture diagonal,kuat
+jarak_tpa_km,desa_indikator_wide,Jarak titik desa ke TPA terdekat (landfill OSM),km,diunduh 2026,OpenStreetMap,Jarak garis lurus,sedang
+jarak_sungai_km,desa_indikator_wide,Jarak titik desa ke sungai atau kanal terdekat,km,diunduh 2026,OpenStreetMap,Jarak garis lurus,sedang
+poi_pesantren,desa_indikator_wide,Jumlah titik pesantren terpetakan,unit,diunduh 2026,OpenStreetMap,Pencocokan nama,indikatif
+poi_pasar,desa_indikator_wide,Jumlah titik pasar terpetakan,unit,diunduh 2026,OpenStreetMap,Kelas marketplace dan nama,indikatif
+poi_banksampah,desa_indikator_wide,Jumlah titik bank sampah terpetakan,unit,diunduh 2026,OpenStreetMap,Pencocokan nama (cakupan sangat rendah),indikatif
+poi_school,desa_indikator_wide,Jumlah sekolah terpetakan,unit,diunduh 2026,OpenStreetMap,Kelas POI,indikatif
+poi_health,desa_indikator_wide,Jumlah fasilitas kesehatan terpetakan,unit,diunduh 2026,OpenStreetMap,Kelas POI,indikatif
+poi_all,desa_indikator_wide,Jumlah seluruh titik minat terpetakan,unit,diunduh 2026,OpenStreetMap,Kelas POI,indikatif
+luas_permukiman_osm_km2,desa_indikator_wide,Luas permukiman terpetakan,km2,diunduh 2026,OpenStreetMap,Rasterisasi 200 m,indikatif
+ntl_2022,desa_indikator_wide,Radiansi cahaya malam median April sampai Oktober 2022,nW per cm2 per sr,2022,NOAA VIIRS DNB VCMSLCFG via GEE,Rerata area desa,kuat
+ntl_2023,desa_indikator_wide,Radiansi cahaya malam median April sampai Oktober 2023,nW per cm2 per sr,2023,NOAA VIIRS DNB VCMSLCFG via GEE,Rerata area desa,kuat
+ntl_2024,desa_indikator_wide,Radiansi cahaya malam median April sampai Oktober 2024,nW per cm2 per sr,2024,NOAA VIIRS DNB VCMSLCFG via GEE,Rerata area desa,kuat
+ntl_2025,desa_indikator_wide,Radiansi cahaya malam median April sampai Oktober 2025,nW per cm2 per sr,2025,NOAA VIIRS DNB VCMSLCFG via GEE,Rerata area desa,kuat
+co_2022,desa_indikator_wide,Kolom CO rerata tahunan 2022,mmol per m2,2022,Copernicus Sentinel 5P OFFL L3 via GEE,Rerata area desa (resolusi sekitar 7 km),indikatif
+co_2023,desa_indikator_wide,Kolom CO rerata tahunan 2023,mmol per m2,2023,Copernicus Sentinel 5P OFFL L3 via GEE,Rerata area desa (resolusi sekitar 7 km),indikatif
+co_2024,desa_indikator_wide,Kolom CO rerata tahunan 2024,mmol per m2,2024,Copernicus Sentinel 5P OFFL L3 via GEE,Rerata area desa (resolusi sekitar 7 km),indikatif
+co_2025,desa_indikator_wide,Kolom CO rerata tahunan 2025,mmol per m2,2025,Copernicus Sentinel 5P OFFL L3 via GEE,Rerata area desa (resolusi sekitar 7 km),indikatif
+so2_2022,desa_indikator_wide,Kolom SO2 rerata tahunan 2022,10^-5 mol per m2,2022,Copernicus Sentinel 5P OFFL L3 via GEE,Rerata area desa (resolusi sekitar 7 km),indikatif
+so2_2023,desa_indikator_wide,Kolom SO2 rerata tahunan 2023,10^-5 mol per m2,2023,Copernicus Sentinel 5P OFFL L3 via GEE,Rerata area desa (resolusi sekitar 7 km),indikatif
+so2_2024,desa_indikator_wide,Kolom SO2 rerata tahunan 2024,10^-5 mol per m2,2024,Copernicus Sentinel 5P OFFL L3 via GEE,Rerata area desa (resolusi sekitar 7 km),indikatif
+so2_2025,desa_indikator_wide,Kolom SO2 rerata tahunan 2025,10^-5 mol per m2,2025,Copernicus Sentinel 5P OFFL L3 via GEE,Rerata area desa (resolusi sekitar 7 km),indikatif
+ntl_pertumbuhan_2022_2025,desa_indikator_wide,Perubahan relatif cahaya malam 2022 ke 2025,rasio,2022 sampai 2025,VIIRS via GEE,(NTL 2025 / NTL 2022) dikurangi 1,kuat
+co_rerata_2022_2025,desa_indikator_wide,Rerata CO 2022 sampai 2025,mmol per m2,2022 sampai 2025,Sentinel 5P via GEE,Rerata empat tahun,indikatif
+so2_rerata_2022_2025,desa_indikator_wide,Rerata SO2 2022 sampai 2025,10^-5 mol per m2,2022 sampai 2025,Sentinel 5P via GEE,Rerata empat tahun,indikatif
+kenaikan_co_kemarau,desa_indikator_wide,CO Agustus sampai Oktober dikurangi CO Januari sampai Maret,mmol per m2,2022 sampai 2025,Sentinel 5P via GEE,Selisih musiman,indikatif
+co_desil_provinsi,desa_indikator_wide,Desil CO rerata dalam provinsi,desil,2022 sampai 2025,Sentinel 5P via GEE,Peringkat,indikatif
+organik_dialihkan_ton_th,desa_indikator_wide,Organik yang dialihkan ke modul pada tangkapan rerata desain,ton per tahun,2026 sampai 2030 (target),Model dampak,Tangkapan tipe x organik rerata,sedang
+input_ad_ton_th,desa_indikator_wide,Organik yang masuk anaerobic digestion,ton per tahun,2026 sampai 2030 (target),Model dampak,Porsi AD menurut tipe,sedang
+metana_m3_th,desa_indikator_wide,Produksi metana,m3 per tahun,2026 sampai 2030 (target),Model dampak,VS x BMP x efisiensi (nilai rerata),sedang
+energi_biogas_mwh_th,desa_indikator_wide,Energi primer biogas,MWh per tahun,2026 sampai 2030 (target),Model dampak,"Metana x 9,97 kWh per m3",sedang
+kapasitas_desain_kg_hari,desa_indikator_wide,Kapasitas desain modul desa termasuk faktor puncak,kg per hari,2026 (desain),Model dampak,Organik dialihkan / 365 x rasio puncak,sedang
+umk_2025_rp,desa_indikator_wide,Upah minimum kabupaten/kota,rupiah per bulan,2025,Kepgub Jabar 561.7/Kep.798-Kesra/2024,Referensi,kuat
+investasi_juta_rp,desa_indikator_wide,Investasi modul bagian desa,juta rupiah,2026 sampai 2030,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",Median Monte Carlo,sedang
+vgf_juta_rp,desa_indikator_wide,Dana penutup kesenjangan kelayakan bagian desa,juta rupiah,2026 sampai 2030,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",Median Monte Carlo,sedang
+vgf_apbd_kabkota_juta_rp,desa_indikator_wide,Porsi VGF dari APBD kab/kota (skenario dasar),juta rupiah,2026 sampai 2030,Optimasi program linear,Amplop 3 persen belanja modal dan 10 persen SiLPA,sedang
+vgf_dana_desa_juta_rp,desa_indikator_wide,Porsi VGF dari Dana Desa (skenario dasar),juta rupiah,2026 sampai 2030,Optimasi program linear,Amplop 3 persen Dana Desa (estimasi proporsional),indikatif
+vgf_bantuan_provinsi_juta_rp,desa_indikator_wide,Porsi VGF dari bantuan keuangan provinsi (skenario dasar),juta rupiah,2026 sampai 2030,Optimasi program linear,Amplop 5 persen bantuan keuangan,sedang
+pekerjaan_langsung,desa_indikator_wide,Pekerjaan langsung bagian desa,orang,2026 sampai 2030,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",Koefisien pekerja per 10 ribu ton menurut skala,sedang
+emisi_dihindari_t_co2e_th,desa_indikator_wide,Emisi dihindari kondisi tunak bagian desa,t CO2e per tahun,kondisi tunak,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan","IPCC FOD, GWP CH4 28",sedang
+lpg_diganti_ton_th,desa_indikator_wide,LPG yang digantikan biogas memasak,ton per tahun,2026 sampai 2030,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",Kesetaraan energi dan efisiensi kompor,indikatif
+listrik_mwh_th,desa_indikator_wide,Listrik dari biogas,MWh per tahun,2026 sampai 2030,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",Efisiensi CHP 30 sampai 38 persen,sedang
+gate_fee_impas_rp_ton,desa_indikator_wide,Gate fee impas sel setelah pendapatan karbon,rupiah per ton,2026,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",Anuitas 15 tahun,sedang
+biaya_buang_dihindari_rp_ton,desa_indikator_wide,"Biaya pembuangan dihindari per ton (tipping fee dan angkut, porsi terangkut)",rupiah per ton,2026,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",Tipping fee dan biaya angkut menurut jarak,sedang
+mac_rp_t_co2e,desa_indikator_wide,Biaya abatemen marjinal sosial sel,rupiah per t CO2e,2026,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",(biaya bersih dikurangi biaya dihindari) / emisi,sedang
+peluang_swadana,desa_indikator_wide,Peluang sel swadana melalui gate fee tanpa VGF,peluang,2026,"Model ekonomi tingkat sel (kab/kota x tipe), dialokasikan ke desa menurut porsi organik dialihkan",Proporsi iterasi Monte Carlo,sedang
+tahap,desa_indikator_wide,Tahap implementasi (1: 2026 sampai 2027; 2: 2028 sampai 2029; 3: 2030),kategori,2026 sampai 2030,Kurva pasokan VGF,Urutan VGF per t CO2e,kuat
+tahun_mulai,desa_indikator_wide,Tahun mulai tahap,tahun,2026 sampai 2030,Kurva pasokan VGF,Pemetaan tahap,kuat
+tahun_selesai,desa_indikator_wide,Tahun selesai tahap,tahun,2026 sampai 2030,Kurva pasokan VGF,Pemetaan tahap,kuat
+hub_desa,desa_indikator_wide,Jumlah desa T1 yang dilayani hub kecamatan,desa,2026 (desain),Model dampak,Agregasi kecamatan,sedang
+hub_organik_ton_th,desa_indikator_wide,Organik yang masuk hub kecamatan,ton per tahun,2026 (desain),Model dampak,Agregasi kecamatan,sedang
+hub_kapasitas_ton_hari,desa_indikator_wide,Kapasitas desain hub kecamatan,ton per hari,2026 (desain),Model dampak,Organik hub / 365 x PMR persentil 90,sedang
+hub_uid_lokasi,desa_indikator_wide,uid desa lokasi indikatif hub (desa T1 dengan organik terbesar),kode,2026 (desain),Model dampak,Aturan lokasi indikatif,indikatif
+hub_desa_lokasi,desa_indikator_wide,Nama desa lokasi indikatif hub,teks,2026 (desain),Model dampak,Aturan lokasi indikatif,indikatif
+skor_keyakinan,desa_indikator_wide,"Skor keyakinan estimasi desa (lebar interval, bukti OSM, NTL, posterior LPA)",skor 0 sampai 100,2026,Model penulis,Kombinasi berbobot,tidak berlaku
+kategori_keyakinan,desa_indikator_wide,"Kategori keyakinan (rendah, sedang, tinggi)",kategori,2026,Model penulis,Ambang 45 dan 70,tidak berlaku
+rekomendasi_utama,desa_indikator_wide,Rekomendasi utama desa,teks,2026,Mesin aturan pipeline/rules_rekomendasi.py,Aturan transparan,lihat kekuatan_bukti
+kekuatan_bukti,desa_indikator_wide,"Kekuatan bukti rekomendasi (kuat, sedang, indikatif)",kategori,2026,Mesin aturan,Aturan transparan,tidak berlaku
