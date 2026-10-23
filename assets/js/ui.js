@@ -6,6 +6,8 @@ export const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 export const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 export const isDark = () => document.documentElement.dataset.theme === 'dark'
   || (!document.documentElement.dataset.theme && matchMedia('(prefers-color-scheme: dark)').matches);
+// data saver or a slow connection: skip optional downloads that only add polish
+export const lowData = () => { const c = navigator.connection; return !!(c?.saveData || /2g|3g/.test(c?.effectiveType || '')); };
 export const debounce = (f, ms = 150) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => f(...a), ms); }; };
 export const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 

@@ -1,5 +1,5 @@
 // Jabar Digital Twin Embryo of WtE Plan: router, theme, lazy views, prefetch, service worker. No build step.
-import { $, $$, isDark } from './ui.js';
+import { $, $$, isDark, lowData } from './ui.js';
 import * as store from './store.js';
 
 const VIEWS = ['ringkasan', 'peta', 'wilayah', 'rekomendasi', 'skenario', 'paper', 'metode'];
@@ -80,8 +80,7 @@ route();
 // Skipped on data-saver or slow connections, where it would only cost the reader bandwidth.
 const idle = window.requestIdleCallback || ((f) => setTimeout(f, 1200));
 async function warmMap() {
-  const c = navigator.connection;
-  if (current === 'peta' || mounted.peta || c?.saveData || /2g|3g/.test(c?.effectiveType || '')) return;
+  if (current === 'peta' || mounted.peta || lowData()) return;
   const v = $('#v-peta'); v.classList.add('warm');
   try { mods.peta ||= await import('./views/peta.js'); if (!mounted.peta) { mounted.peta = true; await mods.peta.warm(v, ctx); } }
   catch (e) { mounted.peta = false; console.warn(e); }

@@ -51,3 +51,19 @@ export function canvasMap(canvas, features, colorOf, { stroke } = {}) {
     if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 0.35; ctx.stroke(); }
   }
 }
+
+// shared fit for layered maps: an SVG overlay and a canvas underneath drawn with the same transform
+export function fit(features, W) {
+  const [x0, y0, x1, y1] = bounds(features), s = W / (x1 - x0), H = Math.round((y1 - y0) * s);
+  const xy = (p) => { const [x, y] = proj(p); return [(x - x0) * s, (y - y0) * s]; };
+  const path = (g) => rings(g).map((poly) => poly.map((ring) => 'M' + ring.map((p) => xy(p).map((v) => v.toFixed(1)).join(',')).join('L') + 'Z').join('')).join('');
+  return { W, H, xy, path };
+}
+export function drawFeatures(ctx, features, xy, colorOf) {
+  for (const f of features) {
+    const c = colorOf(f); if (!c) continue;
+    ctx.beginPath();
+    for (const poly of rings(f.geometry)) for (const ring of poly) ring.forEach((p, j) => { const [X, Y] = xy(p); j ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); });
+    ctx.fillStyle = c; ctx.fill('evenodd');
+  }
+}

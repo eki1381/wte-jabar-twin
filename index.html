@@ -63,7 +63,7 @@
 
 <main id="main" tabindex="-1">
   <section class="view" id="v-ringkasan" data-view="ringkasan">
-    <div class="wrap">
+    <div class="hero-band">
       <div class="hero">
         <div class="hero-body">
           <p class="kicker">Jabar Digital Twin Embryo of WtE Plan</p>
@@ -76,17 +76,14 @@
             <a class="btn btn-glass" href="#paper">Temuan paper</a>
           </div>
         </div>
-        <svg class="hero-art" viewBox="0 0 320 320" aria-hidden="true">
-          <g class="ring">
-            <circle cx="160" cy="160" r="118" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 10" opacity=".35"/>
-            <path d="M160 42a118 118 0 0 1 102 59" fill="none" stroke="#f5b52e" stroke-width="10" stroke-linecap="round"/>
-            <path d="M262 219a118 118 0 0 1-102 59" fill="none" stroke="#34c48a" stroke-width="10" stroke-linecap="round"/>
-            <path d="M58 219A118 118 0 0 1 58 101" fill="none" stroke="#7fd3ff" stroke-width="10" stroke-linecap="round"/>
-          </g>
-          <path d="M160 108c17 20 30 34 30 50a30 30 0 0 1-60 0c0-16 13-30 30-50z" fill="#34c48a"/>
-          <path d="M160 142c7 8.5 11.5 14 11.5 19.5a11.5 11.5 0 0 1-23 0c0-5.5 4.5-11 11.5-19.5z" fill="#f5b52e"/>
-        </svg>
+        <figure class="hero-map">
+          <div class="hm-box" id="heroMap" aria-label="Peta timbulan sampah organik Jawa Barat"></div>
+          <figcaption class="hm-cap"><span>Sampah organik per desa</span><span class="hm-scale">rendah <i class="hm-ramp" aria-hidden="true"></i> tinggi</span><span class="hm-hint">pilih wilayah untuk membuka peta desanya</span></figcaption>
+        </figure>
       </div>
+      <dl class="ribbon" id="ribbon"></dl>
+    </div>
+    <div class="wrap">
       <div id="ringkasanBody" aria-live="polite"></div>
     </div>
   </section>
