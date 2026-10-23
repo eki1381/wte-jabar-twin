@@ -25,6 +25,8 @@ jobs:
         with:
           ref: main
       - uses: actions/configure-pages@v5
+      - name: Sisipkan CSS ke index.html (cat pertama lebih cepat)
+        run: python3 pipeline/inline_css.py
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .

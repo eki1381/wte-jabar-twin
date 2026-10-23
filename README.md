@@ -23,7 +23,7 @@ Tautan langsung: `#peta?t=<topik>&l=<lapisan>&y=<tahun>&k=<kode kab>&kc=<kode ke
 
 ### Kinerja
 
-Halaman ringkasan hanya memuat `provinsi.json` dan `kabkota.json` (puluhan kilobita gzip) serta menggambar peta kabupaten/kota sebagai SVG; teks hero ada di HTML sehingga tampil seketika. Pustaka MapLibre, geometri desa (`desa_jabar_web.topojson`, disederhanakan dengan mapshaper), dan kolom desa dimuat saat peta dibuka atau saat peramban menganggur. Kolom desa dipecah per bundel (`data/desa/inti|timbulan|satelit|ekonomi|lokasi.json`) sehingga peta hanya mengambil kolom lapisan aktif. Chart.js dimuat hanya saat grafik pertama dibuka. Service worker (`sw.js`) menyimpan data dan pustaka agar kunjungan berikutnya terbuka seketika dan tetap bisa dibaca saat luring.
+Halaman ringkasan hanya memuat `provinsi.json` dan `kabkota.json` (puluhan kilobita gzip) serta menggambar peta kabupaten/kota sebagai SVG; teks hero ada di HTML sehingga tampil seketika. Pustaka MapLibre, geometri desa (`desa_jabar_web.topojson`, disederhanakan dengan mapshaper), dan kolom desa dimuat saat peta dibuka atau saat peramban menganggur. Kolom desa dipecah per bundel (`data/desa/inti|timbulan|satelit|ekonomi|lokasi.json`) sehingga peta hanya mengambil kolom lapisan aktif. Chart.js dimuat hanya saat grafik pertama dibuka. Service worker (`sw.js`) menyimpan data dan pustaka agar kunjungan berikutnya terbuka seketika dan tetap bisa dibaca saat luring. Saat pembaca masih di halaman lain, peta dirakit diam-diam di luar layar sehingga tab Peta terbuka seketika (dilewati pada mode hemat data atau koneksi lambat). Workflow terbit menjalankan `pipeline/inline_css.py` untuk menyisipkan CSS ke `index.html`; di repositori CSS tetap berkas terpisah.
 
 ## Menerbitkan di GitHub Pages
 
@@ -64,6 +64,7 @@ dataset/                       dataset lengkap untuk analisis dan portal data (l
 pipeline/build_dataset.py      membangun dataset/ dan data/ dari keluaran model
 pipeline/build_web.py          memecah kolom desa menjadi bundel web dan menulis rekomendasi.json
 pipeline/paper_to_json.py      mengubah naskah .docx menjadi data/paper.json dan gambar webp
+pipeline/inline_css.py         langkah terbit: menyisipkan CSS ke index.html
 pipeline/rules_rekomendasi.py  mesin aturan rekomendasi desa dan kabupaten/kota
 pipeline/kamus.py              kamus data
 pipeline/twin_io.py            penulis lapisan dinamis (deret bulanan)
