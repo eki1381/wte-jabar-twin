@@ -14,7 +14,8 @@ css = css.replace("url('../fonts/", "url('assets/fonts/")
 html = open(html_path, encoding='utf-8').read()
 link = '<link rel="stylesheet" href="assets/css/style.css">'
 preload = '<link rel="preload" href="assets/fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>\n'
-assert link in html, 'tautan style.css tidak ditemukan di index.html'
+if link not in html:
+    print('index.html sudah memuat CSS sisipan; dilewati'); raise SystemExit(0)
 html = html.replace(preload, '').replace(link, f'<style>{css}</style>')
 open(html_path, 'w', encoding='utf-8', newline='').write(html)
 print(f'style.css ({len(css) // 1000} KB) disisipkan ke index.html')

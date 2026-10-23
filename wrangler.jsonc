@@ -1,0 +1,8 @@
+// Cloudflare Workers (static assets only, no server code). The site is the repo itself;
+// .assetsignore keeps git history, workflows and pipeline scripts out of the upload.
+{
+  "name": "wte-jabar-twin",
+  "compatibility_date": "2026-10-01",
+  "build": { "command": "python3 pipeline/inline_css.py" },
+  "assets": { "directory": ".", "not_found_handling": "none" }
+}

@@ -1,0 +1,12 @@
+.git
+.github
+.gitignore
+.assetsignore
+wrangler.jsonc
+_headers
+node_modules
+pipeline
+incoming
+requirements.txt
+README.md
+*.py
