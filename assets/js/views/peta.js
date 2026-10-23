@@ -113,6 +113,8 @@ export async function mount(root, c) {
       <div class="float panel compare" id="compare" hidden></div>
     </div>`;
   $$('.topic', el).forEach((b) => (b.onclick = () => setTopic(b.dataset.t)));
+  // on a phone the panels would cover the map: start them folded, the reader opens them when needed
+  if (small()) { $('#lefty').classList.add('min'); $('#legend').classList.add('min'); }
   wireSearch(); wireCtrls();
   addEventListener('keydown', (e) => {
     if (el.hidden) return;
@@ -151,8 +153,9 @@ async function init() {
   if (PV.tahun_tersedia?.length) { YEARS = PV.tahun_tersedia; if (!YEARS.includes(S.y)) S.y = YEARS[YEARS.length - 1]; }
   byKab = Object.fromEntries(K.map((x) => [x.kode_kabupaten_kota, x]));
   featBy = new Map(GEO.features.map((f) => [f.id, f]));
-  // tiles cut only to z11 with a small buffer: about half the worker time of the defaults, still crisp when overzoomed
-  map.addSource('desa', { type: 'geojson', data: GEO, maxzoom: 11, buffer: 16, tolerance: 1.5 });
+  // tiles cut only to z11 with a small buffer, still crisp when overzoomed. Keep the default simplification
+  // tolerance: a coarser one breaks small desa into triangle shards at low zoom, leaving holes that cannot be clicked
+  map.addSource('desa', { type: 'geojson', data: GEO, maxzoom: 11, buffer: 16 });
   map.addSource('kab', { type: 'geojson', data: KABGEO });
   map.addLayer({ id: 'desa-fill', type: 'fill', source: 'desa', paint: { 'fill-color': '#ccc', 'fill-opacity': ['case', ['boolean', ['feature-state', 'off'], false], 0.08, S.opacity] } });
   map.addLayer({ id: 'desa-line', type: 'line', source: 'desa', minzoom: 9, paint: { 'line-color': isDark() ? '#0b1310' : '#ffffff', 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.15, 13, 0.9], 'line-opacity': 0.8 } });
@@ -165,6 +168,7 @@ async function init() {
   wireMapEvents();
   updateBaseButtons();
 }
+const small = () => innerWidth <= 900;
 const fitPad = () => (innerWidth > 900 ? { left: 390, right: 60, top: 30, bottom: 30 } : 20);
 
 export async function update(params) {
@@ -203,7 +207,7 @@ async function renderTopic() {
   $('#topicCard').innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
       <div><div class="kicker">Topik peta</div><h2>${esc(T.t)}: ${esc(L.label.toLowerCase())}</h2></div>
-      <button class="xbtn collapse-btn" id="tcMin" aria-label="Ciutkan panel"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
+      <button class="xbtn collapse-btn" id="tcMin" aria-label="Buka atau ciutkan panel topik" aria-expanded="${!$('#lefty').classList.contains('min')}"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
     </div>
     <div class="body">
       <p class="q">${esc(T.q)}</p>
@@ -223,7 +227,7 @@ async function renderTopic() {
       <details class="how"><summary>Cara membaca topik ini</summary><div>${esc(T.read)}</div></details>
     </div>`;
   $$('#topicCard [data-l]').forEach((b) => (b.onclick = () => { S.l = b.dataset.l; S.hide.clear(); stopPlay(); renderTopic(); sync(); }));
-  $('#tcMin').onclick = () => $('#lefty').classList.toggle('min');
+  $('#tcMin').onclick = () => $('#tcMin').setAttribute('aria-expanded', !$('#lefty').classList.toggle('min'));
   $('#fKab').onchange = (e) => { S.k = e.target.value; S.kc = ''; renderTopic(); zoomKab(S.k); sync(); };
   $('#fKec').onchange = (e) => { S.kc = e.target.value; paint(); zoomKec(S.kc); sync(); };
   $('#fPen').value = String(S.pen);
@@ -293,10 +297,11 @@ async function paint() {
 function renderLegend(L, counts) {
   const yr = L.yearCol ? S.y : L.year;
   const shown = counts.reduce((a, b) => a + b, 0);
-  $('#legend').innerHTML = `<h4>${esc(L.label)}${L.yearCol ? ' ' + S.y : ''}</h4><div class="u">${esc(L.unit || 'kategori')}</div>
+  $('#legend').innerHTML = `<div class="lg-top"><h4>${esc(L.label)}${L.yearCol ? ' ' + S.y : ''}</h4><button class="xbtn collapse-btn" id="lgMin" aria-label="Buka atau ciutkan legenda" aria-expanded="${!$('#legend').classList.contains('min')}"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button></div><div class="u">${esc(L.unit || 'kategori')}</div>
     ${sc.colors.map((c, i) => `<button class="cls" data-i="${i}" aria-pressed="${!S.hide.has(i)}"><i style="background:${c}"></i><span>${esc(sc.labels[i])}</span><span>${num(counts[i])}</span></button>`).join('')}
     <div class="foot">${num(shown)} desa tampil · data ${esc(String(yr))}, ${esc(L.src)}${sc.cat ? '' : '. Kelas ' + (L.fixed ? 'tetap' : 'kuantil')}.</div>`;
   $$('#legend .cls').forEach((b) => (b.onclick = () => { const i = +b.dataset.i; S.hide.has(i) ? S.hide.delete(i) : S.hide.add(i); paint(); }));
+  $('#lgMin').onclick = () => $('#lgMin').setAttribute('aria-expanded', !$('#legend').classList.toggle('min'));
 }
 const fmtVal = (L, v) => {
   if (!ok(v)) return 'tanpa data';
@@ -322,6 +327,9 @@ function wireMapEvents() {
   });
   map.on('mouseleave', 'desa-fill', () => { hv.hidden = true; last = null; map.getCanvas().style.cursor = ''; map.setFilter('desa-hl', ['==', ['id'], -1]); });
   map.on('click', 'desa-fill', (e) => select(e.features[0].id, false));
+  // touching the map means the reader wants to see it: fold the topic panel out of the way
+  const fold = () => { if (small() && !$('#lefty').classList.contains('min')) { $('#lefty').classList.add('min'); $('#tcMin')?.setAttribute('aria-expanded', false); } };
+  map.on('dragstart', fold); map.on('click', fold);
 }
 const kabName = (k) => kabTitle(byKab[String(k)]?.nama_kabupaten_kota || String(k));
 function bboxOf(fs) {

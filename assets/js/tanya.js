@@ -78,7 +78,10 @@ function findKab(q) {
     .find((k) => (isKota ? k.nama_kabupaten_kota.startsWith('KOTA') : isKab ? k.nama_kabupaten_kota.startsWith('KAB') : k.nama_kabupaten_kota.startsWith('KAB'))) || hits[0];
 }
 
+let seq = 0;
 async function run(raw, close) {
+  // a slower earlier run must not overwrite the answer to what the reader typed last
+  const my = ++seq;
   const q = norm(raw), out = $('#tout'); act = 0; items = []; handlers.length = 0;
   if (!q) { out.innerHTML = `<div class="grp">Halaman</div>${PAGES.slice(0, 8).map((p) => item('→', p[0], 'Buka', () => ctx.go(p[1], p[2]))).join('')}`; wire(close); return; }
   let answer = '';
@@ -87,11 +90,14 @@ async function run(raw, close) {
   if (g) answer = `<div class="answer"><h4>Definisi</h4><p><b>${esc(g[0])}</b>: ${esc(g[1])}</p></div>`;
   else if (ind) {
     await store.cols([ind.col]);
+    if (my !== seq) return;
     const rows = []; for (let i = 0; i < store.N; i++) if (!D.bukan_permukiman[i] && (!kab || String(D.kode_kabupaten_kota[i]) === kab.kode_kabupaten_kota)) rows.push(i);
     const where = kab ? kabTitle(kab.nama_kabupaten_kota) : 'Jawa Barat';
     if (superl || low) {
       const top = rows.sort((a, b) => (low ? 1 : -1) * ((D[ind.col][a] || 0) - (D[ind.col][b] || 0))).slice(0, 5);
-      answer = `<div class="answer"><h4>${esc(ind.label)}, lima desa ${low ? 'terendah' : 'tertinggi'} di ${esc(where)}</h4><ol>${top.map((i) => `<li><button class="link" data-uid="${D.uid[i]}">${esc(title(D.bps_nama_desa_kelurahan[i]))}</button>, Kec. ${esc(title(D.bps_nama_kecamatan[i]))}: <b>${esc(ind.f(D[ind.col][i]))}</b></li>`).join('')}</ol><p class="src">Data ${esc(ind.src)}. Klik nama desa untuk membukanya di peta.</p></div>`;
+      // ranked desa are list items, so arrow keys and Enter reach them like any other result
+      answer = `<div class="answer"><h4>${esc(ind.label)}, lima desa ${low ? 'terendah' : 'tertinggi'} di ${esc(where)}</h4><p class="src">Data ${esc(ind.src)}. Pilih desa untuk membukanya di peta.</p></div>`
+        + top.map((i, j) => item(String(j + 1), `${title(D.bps_nama_desa_kelurahan[i])}: ${ind.f(D[ind.col][i])}`, `Kec. ${title(D.bps_nama_kecamatan[i])}`, () => ctx.go('peta', { desa: D.uid[i] }))).join('');
     } else {
       const sum = rows.reduce((a, i) => a + (D[ind.col][i] || 0), 0);
       answer = `<div class="answer"><h4>${esc(ind.label)}, ${esc(where)}</h4><p><b style="font-size:20px">${esc(ind.f(sum))}</b> dari ${num(rows.length)} desa dan kelurahan.</p><p class="src">Data ${esc(ind.src)}. Jumlah median per desa; total provinsi resmi dan intervalnya ada di Ringkasan.</p></div>`;
@@ -102,6 +108,7 @@ async function run(raw, close) {
   // search matches
   const kabs = K.filter((k) => norm(k.nama_kabupaten_kota).includes(q) || (kab && k === kab)).slice(0, 3);
   const kecs = q.length >= 3 ? [...(await store.kecamatan()).values()].filter((r) => norm(r.nama).includes(q)).slice(0, 4) : [];
+  if (my !== seq) return;
   const ds = []; if (q.length >= 3) for (let i = 0; i < store.N && ds.length < 6; i++) if (norm(D.bps_nama_desa_kelurahan[i]).includes(q)) ds.push(i);
   const pages = PAGES.filter((p) => norm(p[0]).split(' ').some((w) => w.length > 3 && q.includes(w))).slice(0, 4);
   const kn = (k) => kabTitle(K.find((z) => z.kode_kabupaten_kota === String(k))?.nama_kabupaten_kota || k);
@@ -115,7 +122,6 @@ async function run(raw, close) {
   for (const [grp, h] of list) { if (grp !== last) { html += `<div class="grp">${grp}</div>`; last = grp; } html += h; }
   if (!html) html = '<p class="muted" style="padding:14px">Belum ada jawaban. Coba sebut indikator (organik, VGF, emisi, pekerjaan, energi, penduduk) dan nama kabupaten/kota, atau ketik nama desa.</p>';
   out.innerHTML = html;
-  $$('[data-uid]', out).forEach((b) => (b.onclick = () => { ctx.go('peta', { desa: +b.dataset.uid }); close(); }));
   wire(close);
 }
 const handlers = [];

@@ -105,7 +105,8 @@ export function chartTheme(Chart) {
   Chart.defaults.plugins.tooltip.bodyColor = isDark() ? '#10241b' : '#fff';
   Chart.defaults.plugins.tooltip.padding = 10;
   Chart.defaults.plugins.tooltip.cornerRadius = 8;
-  Chart.defaults.animation = reduced() ? false : { duration: 300 };
+  // set only the duration: replacing the whole object drops Chart.js's colour interpolator and every hover throws
+  Chart.defaults.animation.duration = reduced() ? 0 : 300;
 }
 const charts = new Map();
 export function chart(canvas, cfg, Chart) {
