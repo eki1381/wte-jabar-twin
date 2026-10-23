@@ -101,6 +101,6 @@ export function chartjs() {
 
 // warm the map path while the reader is still on the landing page
 export function prefetchMap() {
-  desa(); geoDesa(); geoKab();
-  const l = document.createElement('link'); l.rel = 'prefetch'; l.href = 'assets/vendor/maplibre-gl.js'; document.head.append(l);
+  desa(); geoDesa(); geoKab(); maplibre();
+  import('./views/peta.js');
 }

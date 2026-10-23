@@ -148,7 +148,8 @@ async function init() {
   // the style is inline, so layers can go on as soon as it is parsed; waiting for "load" would wait for basemap tiles
   if (!map.isStyleLoaded()) await new Promise((r) => map.once('style.load', r));
   for (const b of ['terang', 'gelap', 'citra']) map.addLayer({ id: 'base-' + b, type: 'raster', source: b, layout: { visibility: b === S.base ? 'visible' : 'none' } });
-  map.addSource('desa', { type: 'geojson', data: GEO });
+  // tiles cut only to z11 with a small buffer: about half the worker time of the defaults, still crisp when overzoomed
+  map.addSource('desa', { type: 'geojson', data: GEO, maxzoom: 11, buffer: 16, tolerance: 1.5 });
   map.addSource('kab', { type: 'geojson', data: KABGEO });
   map.addLayer({ id: 'desa-fill', type: 'fill', source: 'desa', paint: { 'fill-color': '#ccc', 'fill-opacity': ['case', ['boolean', ['feature-state', 'off'], false], 0.08, S.opacity] } });
   map.addLayer({ id: 'desa-line', type: 'line', source: 'desa', minzoom: 9, paint: { 'line-color': isDark() ? '#0b1310' : '#ffffff', 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.15, 13, 0.9], 'line-opacity': 0.8 } });
