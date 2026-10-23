@@ -1,6 +1,6 @@
 // Peta desa: MapLibre choropleth of 5.986 desa polygons, organised by topic, with search, filters, an interactive
 // legend, a year player, a desa drawer (summary, recommendation, monthly series, seasonal calendar) and compare.
-import { num, pct, rp, esc, title, kabTitle, ok, median, BULAN, BLN, downloadCSV } from '../fmt.js';
+import { num, pct, rp, esc, title, kabTitle, ok, median, short, BULAN, BLN, downloadCSV } from '../fmt.js';
 import { $, $$, css, isDark, debounce, toast, copy, tcol, TIPE, TAHAP, BUKTI, chartTheme, chart } from '../ui.js';
 import { RAMPS, quantClasses, fixedClasses, classOf, labelsFor, CAT } from '../scales.js';
 import * as simstate from '../simstate.js';
@@ -11,7 +11,7 @@ const RAMADAN = ['2022-04', '2023-04', '2024-03', '2025-03', '2026-03', '2027-02
 const LEBARAN = ['2022-05', '2023-04', '2024-04', '2025-03', '2026-03', '2027-03'];
 
 const TOPICS = [
-  { id: 'timbulan', t: 'Timbulan', s: 'Organik dan kepadatan', q: 'Di desa mana sampah organik paling banyak muncul?',
+  { id: 'timbulan', ic: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5M14 11v5', t: 'Timbulan', s: 'Organik dan kepadatan', q: 'Di desa mana sampah organik paling banyak muncul?',
     desc: 'Surface timbulan 2024 dari model dasymetric (Susenas, OSM, cahaya malam) dan 3.000 iterasi Monte Carlo yang dikalibrasi ke 25 ribu ton per hari (DLH Jabar).',
     read: 'Warna makin tua berarti makin banyak. Kelas kuantil membagi desa menjadi kelompok berukuran sama, jadi bandingkan peringkat, bukan selisih absolut. Klik kelas pada legenda untuk menyembunyikan atau menampilkannya.',
     layers: [
@@ -21,7 +21,7 @@ const TOPICS = [
       { id: 'nrt', label: 'Nonrumah tangga', col: 'pangsa_nonrumahtangga', unit: 'pangsa pasar, komersial, fasilitas umum', ramp: 'oranye', year: '2024', src: 'kernel titik minat OSM', pct: true },
       { id: 'pk', label: 'Puncak musiman', col: 'rasio_puncak_rerata', unit: 'rasio puncak bulanan terhadap rerata', ramp: 'oranye', year: 'kalender 2025', src: 'model musiman' },
     ] },
-  { id: 'tipologi', t: 'Tipologi', s: 'Empat tipe desa', q: 'Modul waste-to-energy seperti apa yang cocok untuk tiap desa?',
+  { id: 'tipologi', ic: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z', t: 'Tipologi', s: 'Empat tipe desa', q: 'Modul waste-to-energy seperti apa yang cocok untuk tiap desa?',
     desc: 'Empat tipe dari k-means pada kepadatan, volume organik, pangsa nonrumah tangga, dan jarak ke TPA; dikonfirmasi latent profile analysis (ARI bootstrap 0,90).',
     read: 'Setiap tipe menentukan modul: T1 menyalurkan ke hub kecamatan, T2 digester komunal, T3 unit AD modular di pasar, T4 biodigester rumah tangga dan BSF. Kekuatan bukti menentukan apakah tindakan langsung dijalankan atau diuji dulu.',
     layers: [
@@ -30,7 +30,7 @@ const TOPICS = [
       { id: 'conf', label: 'Skor keyakinan', col: 'skor_keyakinan', unit: 'skor 0–100', ramp: 'biru', year: '2026', src: 'lebar interval, OSM, NTL, LPA' },
       { id: 'bukti', label: 'Kekuatan bukti', cat: 'bukti', col: 'bukti', year: '2026', src: 'aturan rekomendasi' },
     ] },
-  { id: 'aktivitas', t: 'Aktivitas', s: 'Cahaya malam dan udara', q: 'Di mana aktivitas tumbuh, dan seberapa bersih udaranya?',
+  { id: 'aktivitas', ic: 'M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z', t: 'Aktivitas', s: 'Cahaya malam dan udara', q: 'Di mana aktivitas tumbuh, dan seberapa bersih udaranya?',
     desc: 'Rerata area desa dari VIIRS DNB (median April–Oktober, nW/cm²/sr) dan kolom CO serta SO₂ Sentinel-5P, 2022–2025, diekstraksi lewat Google Earth Engine.',
     read: 'Geser atau putar tahun untuk melihat perubahan. Pilih satu desa untuk deret bulanan 48 bulan dibanding median tipenya, dengan Ramadan dan Lebaran diarsir. Resolusi Sentinel-5P sekitar 7 km: gunakan sebagai penanda.',
     layers: [
@@ -40,7 +40,7 @@ const TOPICS = [
       { id: 'so2', label: 'SO₂', yearCol: 'so2_', unit: '10⁻⁵ mol per m²', ramp: 'ungu', src: 'Sentinel-5P via GEE' },
       { id: 'cok', label: 'CO kemarau', col: 'kenaikan_co_kemarau', unit: 'CO Agu–Okt dikurangi Jan–Mar, mmol per m²', ramp: 'oranye', year: '2022–2025', src: 'Sentinel-5P via GEE' },
     ] },
-  { id: 'dampak', t: 'Dampak', s: 'Emisi, energi, kerja', q: 'Apa yang diperoleh bila organik diolah di desa?',
+  { id: 'dampak', ic: 'M5 20c0-9 6-15 15-15 0 9-6 15-15 15zM5 20l8-8', t: 'Dampak', s: 'Emisi, energi, kerja', q: 'Apa yang diperoleh bila organik diolah di desa?',
     desc: 'Dampak tahunan modul pada tangkapan rerata desain: emisi metana TPA yang dihindari (IPCC FOD, kondisi tunak), energi biogas, LPG yang tergantikan, dan pekerjaan langsung.',
     read: 'Emisi dihindari hanya dihitung untuk porsi sampah yang kini benar-benar berakhir di TPA, sehingga desa agraris yang belum terlayani angkutan menyumbang emisi kecil meskipun pekerjaannya banyak.',
     layers: [
@@ -50,7 +50,7 @@ const TOPICS = [
       { id: 'kerja', label: 'Pekerjaan', col: 'pekerjaan_langsung', unit: 'pekerjaan langsung', ramp: 'ungu', year: '2026–2030 (target)', src: 'model dampak' },
       { id: 'lpg', label: 'LPG tergantikan', col: 'lpg_diganti_ton_th', unit: 'ton LPG per tahun', ramp: 'biru', year: '2026–2030 (target)', src: 'model dampak' },
     ] },
-  { id: 'biaya', t: 'Pembiayaan', s: 'VGF dan swadana', q: 'Berapa dana publik yang dibutuhkan tiap desa?',
+  { id: 'biaya', ic: 'M12 3v18M16.5 7H10a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6H7', t: 'Pembiayaan', s: 'VGF dan swadana', q: 'Berapa dana publik yang dibutuhkan tiap desa?',
     desc: 'Nilai ekonomi dihitung pada sel kabupaten/kota kali tipe (84 sel, Monte Carlo), lalu dibagi ke desa menurut porsi organik yang dialihkan. Angka desa adalah porsi, bukan studi kelayakan.',
     read: 'VGF (viability gap funding) adalah hibah modal yang menutup kesenjangan kelayakan selama 15 tahun. Biaya abatemen negatif berarti modul menghemat uang bersih per ton CO₂e.',
     layers: [
@@ -60,7 +60,7 @@ const TOPICS = [
       { id: 'mac', label: 'Biaya abatemen', col: 'mac_rp_t_co2e', unit: 'rupiah per t CO₂e', ramp: 'div', fixed: [-200000, 0, 100000, 300000, 600000], year: '2026', src: 'model ekonomi sel' },
       { id: 'gf', label: 'Gate fee impas', col: 'gate_fee_impas_rp_ton', unit: 'rupiah per ton', ramp: 'oranye', year: '2026', src: 'model ekonomi sel' },
     ] },
-  { id: 'rencana', t: 'Rencana', s: 'Tahap dan logistik', q: 'Kapan dan bagaimana modul dibangun?',
+  { id: 'rencana', ic: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4', t: 'Rencana', s: 'Tahap dan logistik', q: 'Kapan dan bagaimana modul dibangun?',
     desc: 'Tahap mengikuti kurva pasokan VGF: sel dengan VGF per t CO₂e terendah dibangun lebih dulu. T1 menyalurkan organik ke hub kecamatan; jarak ke TPA menentukan biaya angkut yang dihindari.',
     read: 'Tahap 1 (2026–2027) menyerap sel swadana dan termurah, Tahap 2 (2028–2029) sel menengah, Tahap 3 (2030) sel termahal. Lapisan hub menandai desa lokasi indikatif hub dan desa yang dilayaninya.',
     layers: [
@@ -69,7 +69,7 @@ const TOPICS = [
       { id: 'tpa', label: 'Jarak ke TPA', col: 'jarak_tpa_km', unit: 'km garis lurus', ramp: 'oranye', year: 'OSM diunduh 2026', src: 'OpenStreetMap' },
       { id: 'kapd', label: 'Kapasitas desain', col: 'kapasitas_desain_kg_hari', unit: 'kg per hari termasuk faktor puncak', ramp: 'hijau', year: '2026', src: 'model dampak' },
     ] },
-  { id: 'skenario', t: 'Skenario', s: 'Status simulasi', q: 'Sel mana yang terdanai pada pengaturan fiskal saat ini?',
+  { id: 'skenario', ic: 'M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6', t: 'Skenario', s: 'Status simulasi', q: 'Sel mana yang terdanai pada pengaturan fiskal saat ini?',
     desc: 'Status pendanaan sel (kabupaten/kota kali tipe) dari simulator di tab Skenario. Ubah amplop fiskal, tipping fee, atau harga karbon di sana; peta ini mengikuti.',
     read: 'Hijau tua: terdanai penuh atau swadana. Kuning: terdanai sebagian. Abu-abu: belum terdanai. Hasil simulator indikatif; angka resmi paper berasal dari program linear.',
     layers: [{ id: 'sim', label: 'Status skenario', cat: 'sim', col: '_sim', year: '2026–2030', src: 'simulasi di peramban' }] },
@@ -83,7 +83,6 @@ let el, ctx, store, D, map, GEO, KABGEO, K, PV, byKab, Chart, playT, featBy, val
 export async function mount(root, c) {
   el = root; ctx = c; store = c.store;
   el.innerHTML = `
-    <div class="topics" role="tablist" aria-label="Topik peta">${TOPICS.map((t) => `<button class="topic" role="tab" data-t="${t.id}"><b>${t.t}</b><small>${t.s}</small></button>`).join('')}</div>
     <div class="mapwrap" id="mapwrap">
       <div id="map" role="application" aria-label="Peta desa Jawa Barat"></div>
       <div class="float lefty" id="lefty">
@@ -112,7 +111,6 @@ export async function mount(root, c) {
       <aside class="panel drawer" id="drawer" aria-label="Detail desa"></aside>
       <div class="float panel compare" id="compare" hidden></div>
     </div>`;
-  $$('.topic', el).forEach((b) => (b.onclick = () => setTopic(b.dataset.t)));
   // on a phone the panels would cover the map: start them folded, the reader opens them when needed
   if (small()) { $('#lefty').classList.add('min'); $('#legend').classList.add('min'); }
   wireSearch(); wireCtrls();
@@ -202,7 +200,6 @@ function sync() {
 function setTopic(t) { S.t = t; S.l = TOPICS.find((x) => x.id === t).layers[0].id; S.hide.clear(); stopPlay(); renderTopic(); sync(); }
 async function renderTopic() {
   const T = TOPICS.find((x) => x.id === S.t), L = LAYER[S.l];
-  $$('.topic', el).forEach((b) => b.setAttribute('aria-selected', b.dataset.t === S.t));
   const kecs = S.k ? [...(await store.kecamatan()).values()].filter((r) => String(r.kab) === S.k).sort((a, b) => a.nama.localeCompare(b.nama)) : [];
   $('#topicCard').innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:start;gap:8px">
@@ -210,6 +207,7 @@ async function renderTopic() {
       <button class="xbtn collapse-btn" id="tcMin" aria-label="Buka atau ciutkan panel topik" aria-expanded="${!$('#lefty').classList.contains('min')}"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button>
     </div>
     <div class="body">
+      <div class="tgrid" role="tablist" aria-label="Topik peta">${TOPICS.map((t) => `<button class="ttile" role="tab" data-t="${t.id}" aria-selected="${t.id === S.t}" title="${esc(t.s)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="${t.ic}"/></svg>${esc(t.t)}</button>`).join('')}</div>
       <p class="q">${esc(T.q)}</p>
       <div class="pills" style="margin-top:10px" role="radiogroup" aria-label="Lapisan">${T.layers.map((l) => `<button class="pill s" role="radio" aria-pressed="${l.id === S.l}" aria-checked="${l.id === S.l}" data-l="${l.id}">${esc(l.label)}</button>`).join('')}</div>
       ${L.yearCol ? `<div class="yearctl"><button class="playbtn" id="play" aria-label="Putar tahun"><svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg></button>
@@ -226,6 +224,7 @@ async function renderTopic() {
       </div></details>
       <details class="how"><summary>Cara membaca topik ini</summary><div>${esc(T.read)}</div></details>
     </div>`;
+  $$('#topicCard .ttile').forEach((b) => (b.onclick = () => setTopic(b.dataset.t)));
   $$('#topicCard [data-l]').forEach((b) => (b.onclick = () => { S.l = b.dataset.l; S.hide.clear(); stopPlay(); renderTopic(); sync(); }));
   $('#tcMin').onclick = () => $('#tcMin').setAttribute('aria-expanded', !$('#lefty').classList.toggle('min'));
   $('#fKab').onchange = (e) => { S.k = e.target.value; S.kc = ''; renderTopic(); zoomKab(S.k); sync(); };
@@ -295,13 +294,27 @@ async function paint() {
   renderLegend(L, counts);
 }
 function renderLegend(L, counts) {
-  const yr = L.yearCol ? S.y : L.year;
-  const shown = counts.reduce((a, b) => a + b, 0);
-  $('#legend').innerHTML = `<div class="lg-top"><h4>${esc(L.label)}${L.yearCol ? ' ' + S.y : ''}</h4><button class="xbtn collapse-btn" id="lgMin" aria-label="Buka atau ciutkan legenda" aria-expanded="${!$('#legend').classList.contains('min')}"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button></div><div class="u">${esc(L.unit || 'kategori')}</div>
-    ${sc.colors.map((c, i) => `<button class="cls" data-i="${i}" aria-pressed="${!S.hide.has(i)}"><i style="background:${c}"></i><span>${esc(sc.labels[i])}</span><span>${num(counts[i])}</span></button>`).join('')}
-    <div class="foot">${num(shown)} desa tampil · data ${esc(String(yr))}, ${esc(L.src)}${sc.cat ? '' : '. Kelas ' + (L.fixed ? 'tetap' : 'kuantil')}.</div>`;
-  $$('#legend .cls').forEach((b) => (b.onclick = () => { const i = +b.dataset.i; S.hide.has(i) ? S.hide.delete(i) : S.hide.add(i); paint(); }));
-  $('#lgMin').onclick = () => $('#lgMin').setAttribute('aria-expanded', !$('#legend').classList.toggle('min'));
+  const yr = L.yearCol ? S.y : L.year, lg = $('#legend');
+  const shown = counts.reduce((a, b) => a + b, 0), tot = Math.max(1, shown);
+  const seg = (i, flex) => `<button class="seg" data-i="${i}" aria-pressed="${!S.hide.has(i)}" style="flex:${flex} 1 0;background:${sc.colors[i]}" title="${esc(sc.labels[i])}: ${num(counts[i])} desa" aria-label="${esc(sc.labels[i])}, ${num(counts[i])} desa"></button>`;
+  let body;
+  if (sc.cat) {
+    // categories: segment length is the share of desa, so the bar doubles as a distribution
+    body = `<div class="lgbar">${sc.colors.map((_, i) => seg(i, Math.max(counts[i], tot * 0.04))).join('')}</div>
+      <div class="lgcats">${sc.colors.map((c, i) => `<button class="cls" data-i="${i}" aria-pressed="${!S.hide.has(i)}"><i style="background:${c}"></i>${esc(sc.labels[i])}<b>${num(counts[i])}</b></button>`).join('')}</div>`;
+  } else {
+    // classes: equal segments with the class limits at their edges and the desa count under each
+    const real = vals.filter(ok), f = (x) => (L.pct ? pct(x, Math.abs(x) < 0.1 ? 1 : 0) : short(x));
+    const edges = [sc.min ?? Math.min(...real), ...sc.breaks, sc.max ?? Math.max(...real)], n = sc.colors.length;
+    body = `<div class="lgticks">${edges.map((v, i) => `<span style="left:${(100 * i) / n}%">${esc(f(v))}</span>`).join('')}</div>
+      <div class="lgbar">${sc.colors.map((_, i) => seg(i, 1)).join('')}</div>
+      <div class="lgcnt">${counts.map((c) => `<span>${num(c)}</span>`).join('')}</div>`;
+  }
+  lg.innerHTML = `<div class="lg-top"><h4>${esc(L.label)}${L.yearCol ? ' ' + S.y : ''}<small>${esc(L.unit || 'kategori')}</small></h4><button class="xbtn collapse-btn" id="lgMin" aria-label="Buka atau ciutkan legenda" aria-expanded="${!lg.classList.contains('min')}"><svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg></button></div>
+    ${body}
+    <div class="foot">${num(shown)} desa tampil · data ${esc(String(yr))}, ${esc(L.src)}${sc.cat ? '' : '. Kelas ' + (L.fixed ? 'tetap' : 'kuantil')}. Klik warna untuk menyembunyikan.</div>`;
+  $$('#legend [data-i]').forEach((b) => (b.onclick = () => { const i = +b.dataset.i; S.hide.has(i) ? S.hide.delete(i) : S.hide.add(i); paint(); }));
+  $('#lgMin').onclick = () => $('#lgMin').setAttribute('aria-expanded', !lg.classList.toggle('min'));
 }
 const fmtVal = (L, v) => {
   if (!ok(v)) return 'tanpa data';
@@ -322,7 +335,7 @@ function wireMapEvents() {
     const L = LAYER[S.l];
     hv.innerHTML = `<b>${esc(title(D.bps_nama_desa_kelurahan[i]))}</b><span class="muted">${esc(title(D.bps_nama_kecamatan[i]))}, ${esc(kabName(D.kode_kabupaten_kota[i]))}</span><br>${esc(L.label)}: <b style="display:inline">${esc(fmtVal(L, vals[i]))}</b>`;
     hv.hidden = false;
-    const W = el.clientWidth; const x = e.point.x + 16, y = e.point.y + 70;
+    const W = el.clientWidth; const x = e.point.x + 16, y = e.point.y + 16;
     hv.style.left = Math.min(x, W - 290) + 'px'; hv.style.top = y + 'px';
   });
   map.on('mouseleave', 'desa-fill', () => { hv.hidden = true; last = null; map.getCanvas().style.cursor = ''; map.setFilter('desa-hl', ['==', ['id'], -1]); });
