@@ -22,6 +22,9 @@
     var add = function (href, as, mod) { var l = document.createElement('link'); l.rel = mod ? 'modulepreload' : 'preload'; l.href = href; if (as) { l.as = as; if (as === 'fetch') l.crossOrigin = ''; } document.head.appendChild(l); };
     if (map) { add('assets/vendor/maplibre-gl.js', 'script'); add('data/desa/inti.json', 'fetch'); add('data/geo/desa_jabar_web.topojson', 'fetch'); add('data/geo/kabkota_jabar.geojson', 'fetch'); add('assets/js/views/peta.js', null, 1); add('assets/vendor/topojson-client.min.js', 'script'); }
     else if (/^(wilayah|rekomendasi|skenario|paper|metode|ringkasan)$/.test(v)) add('assets/js/views/' + v + '.js', null, 1);
+    // flatten the module chain so it does not arrive one import level at a time
+    ['store', 'ui', 'fmt', 'scales', 'svgmap'].forEach(function (m) { add('assets/js/' + m + '.js', null, 1); });
+    if (v === 'ringkasan') add('data/geo/kabkota_ringan.geojson', 'fetch');
     add('data/provinsi.json', 'fetch'); add('data/kabkota.json', 'fetch');
   })();
 </script>

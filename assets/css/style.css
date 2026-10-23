@@ -84,6 +84,8 @@ svg { flex: none; }
 main { outline: none; }
 .view { animation: fadein .35s var(--ease); }
 .view[hidden] { display: none; }
+/* the map view built ahead of time: laid out at full size offscreen so MapLibre can size and tile it */
+.view.warm[hidden] { display: block; position: fixed; left: -300vw; top: var(--top-h); width: 100vw; visibility: hidden; pointer-events: none; animation: none; }
 @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 .wrap { max-width: 1240px; margin: 0 auto; padding: 22px 20px 64px; }
 .sect { margin-top: 40px; }

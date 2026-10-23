@@ -125,11 +125,9 @@ export async function mount(root, c) {
 }
 
 async function init() {
-  const [mlgl, d, geo, kg, k, pv] = await Promise.all([store.maplibre(), store.desa(), store.geoDesa(), store.geoKab(), store.kab(), store.prov()]);
-  D = d; GEO = geo; KABGEO = kg; K = k; PV = pv;
-  if (PV.tahun_tersedia?.length) { YEARS = PV.tahun_tersedia; if (!YEARS.includes(S.y)) S.y = YEARS[YEARS.length - 1]; }
-  byKab = Object.fromEntries(K.map((x) => [x.kode_kabupaten_kota, x]));
-  featBy = new Map(GEO.features.map((f) => [f.id, f]));
+  // the map and its basemap start while desa data is still downloading
+  const dataP = Promise.all([store.desa(), store.geoDesa(), store.geoKab(), store.kab(), store.prov()]);
+  const mlgl = await store.maplibre();
   const esri = (p) => [`https://server.arcgisonline.com/ArcGIS/rest/services/${p}/MapServer/tile/{z}/{y}/{x}`];
   const attr = 'Peta dasar © Esri, HERE, Garmin, © OpenStreetMap contributors, komunitas pengguna GIS';
   S.base = isDark() ? 'gelap' : 'terang';
@@ -148,6 +146,11 @@ async function init() {
   // the style is inline, so layers can go on as soon as it is parsed; waiting for "load" would wait for basemap tiles
   if (!map.isStyleLoaded()) await new Promise((r) => map.once('style.load', r));
   for (const b of ['terang', 'gelap', 'citra']) map.addLayer({ id: 'base-' + b, type: 'raster', source: b, layout: { visibility: b === S.base ? 'visible' : 'none' } });
+  const [d, geo, kg, k, pv] = await dataP;
+  D = d; GEO = geo; KABGEO = kg; K = k; PV = pv;
+  if (PV.tahun_tersedia?.length) { YEARS = PV.tahun_tersedia; if (!YEARS.includes(S.y)) S.y = YEARS[YEARS.length - 1]; }
+  byKab = Object.fromEntries(K.map((x) => [x.kode_kabupaten_kota, x]));
+  featBy = new Map(GEO.features.map((f) => [f.id, f]));
   // tiles cut only to z11 with a small buffer: about half the worker time of the defaults, still crisp when overzoomed
   map.addSource('desa', { type: 'geojson', data: GEO, maxzoom: 11, buffer: 16, tolerance: 1.5 });
   map.addSource('kab', { type: 'geojson', data: KABGEO });
@@ -178,7 +181,13 @@ export async function update(params) {
   if (params.desa != null && params.desa !== '' && store.idx.has(+params.desa)) { if (S.sel !== +params.desa) select(+params.desa, true); }
   else if (S.k) zoomKab(S.k);
   map.resize();
+  // a map warmed while hidden was sized offscreen; refit once on first show
+  if (!shown && !S.k && S.sel == null) map.fitBounds([[106.35, -7.85], [108.85, -5.9]], { padding: fitPad(), duration: 0 });
+  shown = true;
 }
+let shown = false;
+// called by main.js while the reader is on another view: builds the map offscreen so opening Peta is instant
+export async function warm(root, c) { await mount(root, c); await ready; await renderTopic(); }
 export function hide() { stopPlay(); }
 
 function sync() {

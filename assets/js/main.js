@@ -42,7 +42,7 @@ async function route() {
   document.title = `${TITLES[view]} · Kembaran Digital WtE Jawa Barat`;
   if (current !== view) {
     if (current) mods[current]?.hide?.();
-    $$('main > .view').forEach((v) => (v.hidden = v.dataset.view !== view));
+    $$('main > .view').forEach((v) => { v.hidden = v.dataset.view !== view; if (!v.hidden) v.classList.remove('warm'); });
     if (current) window.scrollTo({ top: 0 });
     current = view;
   }
@@ -76,7 +76,15 @@ export { tanya };
 addEventListener('hashchange', route);
 route();
 
-// after first paint: warm the map path, then register the offline cache
+// after first paint, while the reader is on another view, build the map offscreen so opening Peta is instant.
+// Skipped on data-saver or slow connections, where it would only cost the reader bandwidth.
 const idle = window.requestIdleCallback || ((f) => setTimeout(f, 1200));
-addEventListener('load', () => idle(() => { if (current !== 'peta') store.prefetchMap(); }, { timeout: 4000 }));
+async function warmMap() {
+  const c = navigator.connection;
+  if (current === 'peta' || mounted.peta || c?.saveData || /2g|3g/.test(c?.effectiveType || '')) return;
+  const v = $('#v-peta'); v.classList.add('warm');
+  try { mods.peta ||= await import('./views/peta.js'); if (!mounted.peta) { mounted.peta = true; await mods.peta.warm(v, ctx); } }
+  catch (e) { mounted.peta = false; console.warn(e); }
+}
+addEventListener('load', () => idle(warmMap, { timeout: 3000 }));
 if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});

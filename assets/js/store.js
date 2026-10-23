@@ -99,8 +99,3 @@ export function chartjs() {
   return loadScript('assets/vendor/chart.umd.js').then(() => window.Chart);
 }
 
-// warm the map path while the reader is still on the landing page
-export function prefetchMap() {
-  desa(); geoDesa(); geoKab(); maplibre();
-  import('./views/peta.js');
-}
